@@ -1,0 +1,11 @@
+server:
+  port: 3001
+
+db:
+  type: 'mysql'
+  port: 3306
+  database: 'trimmdich'
+
+jwt:
+  secret: 'Mpo+yZoWbU;mwK2zpif?B+HP3'
+  expiresIn: 3600

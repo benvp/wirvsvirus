@@ -1,0 +1,12 @@
+server:
+  loglevel: 'debug'
+
+db:
+  type: 'postgres'
+  port: 5432
+  host: 'localhost'
+  username: 'postgres'
+  password: 'admin'
+  synchronize: true
+  database: 'trimmdich'
+

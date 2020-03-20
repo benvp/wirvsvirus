@@ -1,0 +1,36 @@
+name: Build backend
+
+on: 
+  push:
+    branches:
+      - master
+      - testing
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [12.x]
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - name: Authenticate with GitHub package registry
+      run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_ACCESS_TOKEN }}" > ~/.npmrc
+    - name: yarn install and build
+      run: |
+        yarn install
+        yarn build
+      working-directory: ./backend
+      
+    env:
+      CI: true

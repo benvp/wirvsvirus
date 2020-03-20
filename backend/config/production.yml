@@ -1,0 +1,8 @@
+server:
+  loglevel: 'debug'
+
+db:
+  synchronize: false
+  type: 'mysql'
+  port: 3306
+  database: 'trimmdich'
