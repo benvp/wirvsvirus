@@ -16,10 +16,4 @@ export class AuthCredentialsDto {
   @MaxLength(40)
   @IsOptional()
   displayName: string;
-
-  @IsString()
-  @MinLength(3)
-  @MaxLength(40)
-  @IsOptional()
-  url: string;
 }

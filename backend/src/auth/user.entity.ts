@@ -4,10 +4,12 @@ import {
   BaseEntity,
   Column,
   Entity,
+  OneToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import { Role } from './roles.enum';
+import { Training } from '../trainings/training.entity';
 
 @Entity()
 export class User extends BaseEntity {
@@ -28,6 +30,9 @@ export class User extends BaseEntity {
 
   @Column({ nullable: true })
   role: Role;
+
+  @OneToMany(type => Training, x => x.user, { eager: false })
+  trainings: Training[];
 
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);

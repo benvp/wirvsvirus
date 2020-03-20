@@ -14,7 +14,7 @@ import { logger } from '../logger';
 @EntityRepository(User)
 export class UsersRepository extends Repository<User> {
   async signUp(authCredentialsDto: AuthCredentialsDto, role?: Role): Promise<BaseUser> {
-    const { username, password, displayName, url } = authCredentialsDto;
+    const { username, password, displayName } = authCredentialsDto;
 
     const user = new User();
     user.username = username;
