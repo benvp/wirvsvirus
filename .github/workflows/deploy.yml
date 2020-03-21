@@ -24,6 +24,7 @@ jobs:
       run: echo "//npm.pkg.github.com/:_authToken=${{ secrets.GITHUB_ACCESS_TOKEN }}" > ~/.npmrc
     - name: yarn install and build
       run: |
+        yarn seed
         yarn install
         yarn build
       working-directory: ./backend
