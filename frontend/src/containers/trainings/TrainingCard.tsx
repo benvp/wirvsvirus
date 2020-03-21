@@ -11,6 +11,7 @@ import trainings from '@@pages/trainings';
 import { useCurrentUser } from '@@/context/AuthContext';
 import CopyToClipboard from 'react-copy-to-clipboard';
 import classnames from 'classnames';
+import { ROUTES } from '@@modules/routes';
 
 type TrainingCardProps = {};
 
@@ -36,6 +37,10 @@ export const TrainingCard: React.FC<TrainingCardProps> = () => {
     fetch(apiRoutes.trainingAttend(trainingId), {
       method: isAttendee ? 'DELETE' : 'POST',
     }).then(res => res.json()),
+  );
+
+  const [deleteTraining, { status: deleteStatus }] = useMutation(() =>
+    fetch(apiRoutes.training(trainingId), { method: 'DELETE' }),
   );
 
   return (
@@ -203,6 +208,21 @@ export const TrainingCard: React.FC<TrainingCardProps> = () => {
           </div>
         </div>
       </div>
+      {isOwner && (
+        <div className="flex justify-end px-2 mt-4">
+          <a
+            className="text-gray-400 text-sm font-semibold hover:text-red-400"
+            onClick={() =>
+              confirm(
+                'Möchtest du dieses Training wirklich löschen? Du kannst diese Aktion nicht rückgängig machen.',
+              ) && deleteTraining().then(() => router.push(ROUTES.TRAININGS))
+            }
+            href="#"
+          >
+            Training löschen
+          </a>
+        </div>
+      )}
     </div>
   );
 };

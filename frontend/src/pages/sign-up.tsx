@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { ROUTES } from '@@modules/routes';
+import { useAuthInfo } from '@@/context/AuthContext';
+import { useRouter } from 'next/router';
 
 type SignUpProps = {};
 
 const SignUp: React.FC<SignUpProps> = () => {
+  const { auth } = useAuthInfo();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (auth?.accessToken) {
+      router.replace(ROUTES.TRAININGS);
+    }
+  }, [auth]);
+
   return (
     <div className="flex flex-col justify-start sm:px-6">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
