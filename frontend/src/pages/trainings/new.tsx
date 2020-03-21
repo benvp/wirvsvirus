@@ -20,12 +20,16 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
 
   const [suggestions, setSuggestions] = useState<Tag[]>([]);
 
-  const { data: tags = [] } = useQuery<Tag[], any>('tags', () =>
-    fetch(apiRoutes.tags).then(res => res.json()),
+  const { data: tags = [] } = useQuery<Tag[], any>(
+    'tags',
+    () => fetch(apiRoutes.tags).then(res => res.json()),
+    { initialData: [] },
   );
 
   const [createTraining] = useMutation((values: any) =>
-    fetch(apiRoutes.trainings, { method: 'POST', body: JSON.stringify(values) }),
+    fetch(apiRoutes.trainings, { method: 'POST', body: JSON.stringify(values) }).then(res =>
+      res.json(),
+    ),
   );
 
   const convertTag = (tag: Tag): AutocompleteTag => ({
@@ -34,6 +38,7 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
   });
 
   const filterSuggestions = (query: string) => {
+    console.log('tags', tags);
     const filtered = tags.filter(x => x.text.toLowerCase().startsWith(query.toLowerCase()));
 
     setSuggestions(filtered);

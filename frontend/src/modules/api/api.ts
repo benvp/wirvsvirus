@@ -11,10 +11,12 @@ export const apiRoutes = {
   tags: apiRoute('/tags'),
   trainings: apiRoute('/trainings'),
   training: (id: number) => apiRoute(`/trainings/${id}`),
+  trainingAttend: (id: number) => apiRoute(`/trainings/${id}/attend`),
 };
 
 export const useFetch = () => {
   const auth = useAuthInfo();
+  const router = useRouter();
 
   return (url: string, init?: RequestInit | undefined) =>
     fetch(url, {
@@ -26,6 +28,9 @@ export const useFetch = () => {
     }).then(res => {
       if (res.status === 401) {
         auth.setAuth(undefined);
+        router.replace(ROUTES.LOGIN);
+
+        throw new Error('Unauthorized');
       }
 
       return res;

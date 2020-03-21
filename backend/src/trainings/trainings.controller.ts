@@ -19,7 +19,6 @@ export class TrainingsController {
 
   @Get()
   @HttpCode(200)
-  @UseGuards(ApiAuthGuard, RolesGuard)
   @Roles(
     Role.ADMIN,
     Role.TRIMMED,
@@ -112,5 +111,20 @@ export class TrainingsController {
     @Param('id', ParseIntPipe) id: number
   ): Promise<Training> {
     return this.service.attendTraining(id, user);
+  }
+
+  @Delete(':id/attend')
+  @HttpCode(200)
+  @UseGuards(ApiAuthGuard, RolesGuard)
+  @Roles(
+    Role.ADMIN,
+    Role.TRIMMED,
+    Role.TRIMMER,
+  )
+  unattend(
+    @GetUser() user: User,
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Training> {
+    return this.service.unattendTraining(id, user);
   }
 }

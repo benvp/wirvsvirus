@@ -23,11 +23,13 @@ export const ListRow: React.FC<ListRowProps> = ({ className, training }) => {
           <div className="px-4 py-4 flex items-center sm:px-6">
             <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
-                <div className="text-sm leading-5 font-medium text-indigo-600 truncate">
-                  {training.name}
-                  <span className="ml-1 font-normal text-gray-500">
-                    von {training?.host?.displayName}
-                  </span>
+                <div className="flex align-middle">
+                  <div className="text-sm leading-5 font-medium text-indigo-600 truncate">
+                    {training.name}
+                    <span className="ml-1 font-normal text-gray-500">
+                      von {training?.host?.displayName}
+                    </span>
+                  </div>
                 </div>
                 <div className="mt-2 flex">
                   {training.tags?.map((t, idx) => (
@@ -38,10 +40,39 @@ export const ListRow: React.FC<ListRowProps> = ({ className, training }) => {
                 </div>
               </div>
               <div className="mt-4 flex-shrink-0 sm:mt-0">
-                <div className="flex">
+                <div className="">
+                  <div className="flex justify-end">
+                    {training.professional && (
+                      <div className="flex-shrink-0 flex justify-end mr-2 mb-2">
+                        <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                          PRO
+                        </span>
+                      </div>
+                    )}
+                    <div className="flex mb-2 align-middle">
+                      <span className="self-center">
+                        <svg
+                          className="h-4 w-4 text-gray-600"
+                          xmlns="http://www.w3.org/2000/svg"
+                          viewBox="0 0 24 24"
+                          fill="currentColor"
+                          width="24"
+                          height="24"
+                        >
+                          <path
+                            className="heroicon-ui"
+                            d="M12 12a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-2a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm9 11a1 1 0 0 1-2 0v-2a3 3 0 0 0-3-3H8a3 3 0 0 0-3 3v2a1 1 0 0 1-2 0v-2a5 5 0 0 1 5-5h8a5 5 0 0 1 5 5v2z"
+                          />
+                        </svg>
+                      </span>
+                      <span className="ml-1 self-center text-gray-600 text-sm">
+                        <strong>{training.attendees.length}</strong> Teilnehmer
+                      </span>
+                    </div>
+                  </div>
                   <div className="flex items-center text-sm leading-5 text-gray-500">
                     <span>
-                      <time dateTime="2020-01-07">{format(new Date(training.date), 'Pp')}</time>
+                      <time dateTime="2020-01-07">{format(new Date(training.date), 'PPPPp')}</time>
                     </span>
                   </div>
                 </div>
