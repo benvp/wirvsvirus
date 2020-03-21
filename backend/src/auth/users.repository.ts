@@ -101,12 +101,15 @@ export class UsersRepository extends Repository<User> {
 
   getAdminUser = async (): Promise<User> =>
     await this.findOne({ username: 'admin' });
+    
+getUserByName = async (name: string): Promise<User> =>
+    await this.findOne({ username: name });
 
   getAllAdmins = async (): Promise<User[]> =>
     await this.find({ role: Role.ADMIN });
 
   getAllUsers = async (): Promise<User[]> =>
     await this.createQueryBuilder('user')
-      .orderBy('login', 'ASC')
+      .orderBy('username', 'ASC')
       .getMany();
 }

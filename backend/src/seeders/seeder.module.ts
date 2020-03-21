@@ -10,6 +10,10 @@ import { Seeder } from './seeder';
 import { UsersRepository } from '../auth/users.repository';
 
 import typeOrmConfig = require('../config/typeorm.config');
+import { TrainingsService } from 'src/trainings/trainings.service';
+import { TrainingsRepository } from 'src/trainings/trainings.repository';
+import { TagsService } from 'src/tags/tags.service';
+import { TagsRepository } from 'src/tags/tags.repository';
 
 const jwtConfig = config.get('jwt');
 
@@ -23,8 +27,8 @@ const jwtConfig = config.get('jwt');
       },
     }),
     TypeOrmModule.forRoot(typeOrmConfig as TypeOrmModuleOptions),
-    TypeOrmModule.forFeature([UsersRepository]),
+    TypeOrmModule.forFeature([UsersRepository, TrainingsRepository, TagsRepository]),
   ],
-  providers: [AuthService, Logger, Seeder],
+  providers: [AuthService, Logger, Seeder, TrainingsService, TagsService],
 })
 export class SeederModule { }

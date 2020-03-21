@@ -1,4 +1,4 @@
-import { Injectable, Inject, Logger, NotFoundException } from '@nestjs/common';
+import { Injectable, Inject, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TagsRepository } from './tags.repository';
 import { CreateTagDto } from './dto/create-tag.dto';
@@ -7,9 +7,7 @@ import { CreateTagDto } from './dto/create-tag.dto';
 export class TagsService {
   constructor(
     @InjectRepository(TagsRepository)
-    private repository: TagsRepository,
-    @Inject('winston')
-    private readonly logger: Logger,
+    private repository: TagsRepository
   ) { }
 
   getAll = () =>
