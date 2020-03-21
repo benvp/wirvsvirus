@@ -68,7 +68,7 @@ export class Seeder {
             await this.tService.createTraining(train, user);
         }
 
-        // Tags
+        // Tags...
         for (const t of tags) {
             const tag = new CreateTagDto()
             tag.text = t
