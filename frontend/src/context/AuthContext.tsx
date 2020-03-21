@@ -15,7 +15,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     user: {
       displayName: 'admin',
       username: 'admin',
-      id: '92365fd3-0cbe-4118-bd26-2186b6ccc150',
+      id: 'c3434f6e-81d8-4f5d-a9c5-e6dcbce7dfa4',
       role: 'admin' as Role,
     },
   });

@@ -7,6 +7,8 @@ export interface Training {
   videoLink: string;
   host: User;
   tags: Tag[];
+  professional: boolean;
+  attendees: User[];
 }
 
 export interface AuthInfo {

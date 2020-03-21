@@ -25,7 +25,9 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
   );
 
   const [createTraining] = useMutation((values: any) =>
-    fetch(apiRoutes.trainings, { method: 'POST', body: JSON.stringify(values) }),
+    fetch(apiRoutes.trainings, { method: 'POST', body: JSON.stringify(values) }).then(res =>
+      res.json(),
+    ),
   );
 
   const convertTag = (tag: Tag): AutocompleteTag => ({

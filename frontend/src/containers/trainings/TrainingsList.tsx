@@ -23,11 +23,13 @@ export const ListRow: React.FC<ListRowProps> = ({ className, training }) => {
           <div className="px-4 py-4 flex items-center sm:px-6">
             <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
-                <div className="text-sm leading-5 font-medium text-indigo-600 truncate">
-                  {training.name}
-                  <span className="ml-1 font-normal text-gray-500">
-                    von {training?.host?.displayName}
-                  </span>
+                <div className="flex align-middle">
+                  <div className="text-sm leading-5 font-medium text-indigo-600 truncate">
+                    {training.name}
+                    <span className="ml-1 font-normal text-gray-500">
+                      von {training?.host?.displayName}
+                    </span>
+                  </div>
                 </div>
                 <div className="mt-2 flex">
                   {training.tags?.map((t, idx) => (
@@ -38,7 +40,14 @@ export const ListRow: React.FC<ListRowProps> = ({ className, training }) => {
                 </div>
               </div>
               <div className="mt-4 flex-shrink-0 sm:mt-0">
-                <div className="flex">
+                <div className="">
+                  {training.professional && (
+                    <div className="flex-shrink-0 flex justify-end mb-2">
+                      <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-yellow-100 text-yellow-800">
+                        PRO
+                      </span>
+                    </div>
+                  )}
                   <div className="flex items-center text-sm leading-5 text-gray-500">
                     <span>
                       <time dateTime="2020-01-07">{format(new Date(training.date), 'Pp')}</time>

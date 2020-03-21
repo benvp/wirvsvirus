@@ -11,6 +11,7 @@ export const apiRoutes = {
   tags: apiRoute('/tags'),
   trainings: apiRoute('/trainings'),
   training: (id: number) => apiRoute(`/trainings/${id}`),
+  trainingAttend: (id: number) => apiRoute(`/trainings/${id}/attend`),
 };
 
 export const useFetch = () => {
