@@ -15,8 +15,6 @@ export class TrainingsService {
     @InjectRepository(TrainingsRepository)
     private repository: TrainingsRepository,
     private tagService: TagsService,
-    @Inject('winston')
-    private readonly logger: Logger,
   ) { }
 
   getAll = () => this.repository.getAll();
