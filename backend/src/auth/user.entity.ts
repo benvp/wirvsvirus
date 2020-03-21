@@ -5,7 +5,6 @@ import {
   Column,
   Entity,
   OneToMany,
-  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -23,10 +22,10 @@ export class User extends BaseEntity {
   @Column()
   displayName: string;
 
-  @Column()
+  @Column({ select: false })
   password: string;
 
-  @Column()
+  @Column({ select: false })
   salt: string;
 
   @Column({ nullable: true })

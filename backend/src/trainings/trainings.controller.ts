@@ -68,4 +68,19 @@ export class TrainingsController {
   getById(@Param('id', ParseIntPipe) id: number): Promise<Training> {
     return this.service.getById(id);
   }
+
+  @Post(':id/attend')
+  @HttpCode(200)
+  @UseGuards(ApiAuthGuard, RolesGuard)
+  @Roles(
+    Role.ADMIN,
+    Role.TRIMMED,
+    Role.TRIMMER,
+  )
+  attend(
+    @GetUser() user: User,
+    @Param('id', ParseIntPipe) id: number
+  ): Promise<Training> {
+    return this.service.attendTraining(id, user);
+  }
 }

@@ -74,7 +74,12 @@ export class UsersRepository extends Repository<User> {
     authCredentialsDto: AuthCredentialsDto,
   ): Promise<BaseUser> => {
     const { username, password } = authCredentialsDto;
-    const user = await this.findOne({ username });
+    const user = await this.createQueryBuilder('user')
+    .select(['user.id', 'user.username', 'user.displayName', 'user.role'])
+    .addSelect('user.password')
+    .addSelect('user.salt')
+    .where({ username })
+    .getOne();
 
     if (user && (await user.validatePassword(password)))
       return {

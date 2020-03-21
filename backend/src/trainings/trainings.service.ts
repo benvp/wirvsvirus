@@ -20,18 +20,8 @@ export class TrainingsService {
 
   getAll = () => this.repository.getAll();
 
-  find = async (dto: SearchDto) => {
-    const result = await this.repository.getAll(dto.search, dto.page, dto.itemsPerPage);
-    // FIXME: This is kind of dirty and should be improved on query builder level...
-    result.items.forEach(item => {
-      if (item.host) {
-        const host = item.host;
-        delete host.password;
-        delete host.salt;
-      }
-    });
-    return result;
-  }
+  find = async (dto: SearchDto) =>
+    this.repository.getAll(dto.search, dto.page, dto.itemsPerPage);
 
   getById = async (id: number): Promise<Training> => {
     const entity = await this.repository.findOne(id);
@@ -41,7 +31,7 @@ export class TrainingsService {
     return entity;
   };
 
-  createTraining = async (dto: CreateTrainingDto, user?: User) => {
+  createTraining = async (dto: CreateTrainingDto, user: User) => {
     const training = new Training();
     training.createdDate = new Date();
     training.date = dto.date;
@@ -62,8 +52,12 @@ export class TrainingsService {
       });
     }
 
-    await training.save();
-    delete training.host;
-    return training;
+    return training.save();
+  }
+
+  attendTraining = async (id: number, user: User) => {
+    const training = await this.getById(id);
+    training.attendees.push(user);
+    return training.save();
   }
 }
