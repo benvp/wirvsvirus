@@ -36,4 +36,10 @@ export class TrainingsRepository extends Repository<Training> {
       pageCount: Math.ceil(total / itemsPerPage),
     }
   };
+
+  hasTrainings = async (): Promise<boolean> => {
+    const count = await this.count();
+    return count > 0;
+  };
+
 }

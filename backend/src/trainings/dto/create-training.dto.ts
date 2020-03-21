@@ -17,4 +17,11 @@ export class CreateTrainingDto {
   @IsNotEmpty()
   @IsOptional()
   videoLink: string;
+
+  @IsNotEmpty()
+  @IsOptional()
+  pictureLink: string;
+
+  @IsNotEmpty()
+  professional: boolean;
 }

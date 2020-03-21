@@ -5,6 +5,7 @@ import {
   Column,
   Entity,
   OneToMany,
+  ManyToMany,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
@@ -31,8 +32,8 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   role: Role;
 
-  @OneToMany(type => Training, x => x.user, { eager: false })
-  trainings: Training[];
+  @OneToMany(type => Training, x => x.host, { eager: false })
+  hostTrainings: Training[];
 
   async validatePassword(password: string): Promise<boolean> {
     const hash = await bcrypt.hash(password, this.salt);

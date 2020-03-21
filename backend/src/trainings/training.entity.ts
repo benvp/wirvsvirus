@@ -17,24 +17,34 @@ export class Training extends BaseEntity {
   id: number;
 
   @Column()
+  createdDate: Date;
+
+  @Column()
   name: string;
 
   @Column()
   description: string;
 
+  @Column({ nullable: true })
+  pictureLink: string;
+
   @Column()
   date: Date;
 
   @Column()
-  createdDate: Date;
-
-  @Column({ nullable: true })
-  videoLink: string;
-
-  @ManyToOne(type => User, x => x.trainings, { eager: false })
-  user: User;
+  conferenceLink: string;
 
   @ManyToMany(type => Tag, { nullable: true })
   @JoinTable()
   tags: Tag[];
+
+  @Column()
+  professional: boolean;
+
+  @ManyToOne(type => User, x => x.hostTrainings, { eager: false })
+  host: User;
+
+  @ManyToMany(type => User, { nullable: true })
+  @JoinTable()
+  attendees: User[];
 }

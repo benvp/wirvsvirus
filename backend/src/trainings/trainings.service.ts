@@ -32,13 +32,15 @@ export class TrainingsService {
     training.date = dto.date;
     training.name = dto.name;
     training.description = dto.description;
-    training.videoLink = dto.videoLink;
+    training.conferenceLink = dto.videoLink;
+    training.pictureLink = dto.pictureLink;
+    training.professional = dto.professional;
 
-    training.user = user;
+    training.host = user;
 
     // FIXME: Implement tags resolving
     await training.save();
-    delete training.user;
+    delete training.host;
     return training;
   }
 }
