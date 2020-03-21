@@ -1,6 +1,7 @@
 import React from 'react';
 import { TrainingsList } from '../containers/trainings/TrainingsList';
 import { PageHeader } from '@@components/PageHeader/PageHeader';
+import { requireAuth } from '@@components/auth/auth';
 
 type TrainingsProps = {};
 
@@ -13,4 +14,4 @@ const Trainings: React.FC<TrainingsProps> = () => {
   );
 };
 
-export default Trainings;
+export default requireAuth(Trainings);

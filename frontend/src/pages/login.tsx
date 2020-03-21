@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
 import { useFormik } from 'formik';
 import { useMutation } from 'react-query';
-import { API_ROUTES } from '../constants';
 import { Button } from '@@components/Button/Button';
 import { AuthInfo } from '../types/globalTypes';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@@modules/routes';
 import { useAuthInfo } from '../context/AuthContext';
+import { API_ROUTES } from '@@modules/api/api';
 
 type Credentials = {
   username: string;

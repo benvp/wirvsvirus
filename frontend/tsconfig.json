@@ -25,7 +25,7 @@
       "@@modules/*": ["./src/modules/*"],
       "@@styled-components": ["./src/styled-components"],
       "@@styled-components/*": ["./src/styled-components/*"],
-      "@@/*": ["./*"]
+      "@@/*": ["./src/*"]
     },
   },
   "exclude": [
