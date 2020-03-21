@@ -16,6 +16,18 @@ import { PagingResult } from '../types';
 export class TrainingsController {
   constructor(private readonly service: TrainingsService) { }
 
+  @Get()
+  @HttpCode(200)
+  @UseGuards(ApiAuthGuard, RolesGuard)
+  @Roles(
+    Role.ADMIN,
+    Role.TRIMMED,
+    Role.TRIMMER,
+  )
+  getAll(): Promise<PagingResult<Training>> {
+    return this.service.getAll();
+  }
+
   @Post()
   @UseGuards(ApiAuthGuard, RolesGuard)
   @Roles(
@@ -39,10 +51,10 @@ export class TrainingsController {
     Role.TRIMMED,
     Role.TRIMMER,
   )
-  getAll(
+  find(
     @Body(ValidationPipe) searchDto: SearchDto,
   ): Promise<PagingResult<Training>> {
-    return this.service.getAll(searchDto);
+    return this.service.find(searchDto);
   }
 
   @Get(':id')
