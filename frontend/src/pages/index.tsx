@@ -1,5 +1,6 @@
 import React from 'react';
 import Head from 'next/head';
+import { LandingPage } from '@@/containers/LandingPage';
 
 const Home: React.FC = () => {
   return (
@@ -7,7 +8,9 @@ const Home: React.FC = () => {
       <Head>
         <title>TrimmDich 2.0</title>
       </Head>
-      <main>Hallo</main>
+      <main>
+        <LandingPage />
+      </main>
 
       <footer></footer>
     </main>

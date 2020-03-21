@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ROUTES } from '../modules/routes';
+import { ROUTES, PUBLIC_ROUTES } from '../modules/routes';
 import classnames from 'classnames';
 
 type NavLinkProps = {
@@ -28,6 +28,12 @@ type ShellProps = {};
 export const Shell: React.FC<ShellProps> = ({ children }) => {
   const { route } = useRouter();
 
+  const isPublic = PUBLIC_ROUTES.includes(route);
+
+  if (isPublic) {
+    return <div>{children}</div>;
+  }
+
   return (
     <div className="min-h-screen">
       <nav className="bg-white shadow-sm">
@@ -35,28 +41,16 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <img
-                  className="block lg:hidden h-8 w-auto"
-                  src="/img/logos/workflow-mark-on-white.svg"
-                  alt=""
-                />
-                <img
-                  className="hidden lg:block h-8 w-auto"
-                  src="/img/logos/workflow-logo-on-white.svg"
-                  alt=""
-                />
+                <Link href={ROUTES.ROOT}>
+                  <a>
+                    <img className="block lg:hidden h-8 w-auto" src="/img/trimmy.png" alt="" />
+                    <img className="hidden lg:block h-8 w-auto" src="/img/trimmy.png" alt="" />
+                  </a>
+                </Link>
               </div>
               <div className="hidden sm:ml-6 sm:flex">
                 <NavLink href={ROUTES.ROOT} active={route === ROUTES.ROOT}>
-                  Home
-                </NavLink>
-
-                <NavLink href={ROUTES.SIGN_UP} active={route === ROUTES.SIGN_UP} className="ml-8">
-                  Registrieren
-                </NavLink>
-
-                <NavLink href={ROUTES.LOGIN} active={route === ROUTES.LOGIN} className="ml-8">
-                  Login
+                  Das Projekt
                 </NavLink>
 
                 <NavLink
