@@ -6,9 +6,7 @@ const Login: React.FC<LoginProps> = () => {
   return (
     <div className="flex flex-col justify-start sm:px-6">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-          Login to your account
-        </h2>
+        <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">Login</h2>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
@@ -16,7 +14,7 @@ const Login: React.FC<LoginProps> = () => {
           <form action="#" method="POST">
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">
-                Email address
+                E-Mail Adresse
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
@@ -33,7 +31,7 @@ const Login: React.FC<LoginProps> = () => {
                 htmlFor="password"
                 className="block text-sm font-medium leading-5 text-gray-700"
               >
-                Password
+                Passwort
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
@@ -45,7 +43,7 @@ const Login: React.FC<LoginProps> = () => {
               </div>
             </div>
 
-            <div className="mt-6 flex items-center justify-between">
+            {/* <div className="mt-6 flex items-center justify-between">
               <div className="flex items-center">
                 <input
                   id="remember_me"
@@ -65,7 +63,7 @@ const Login: React.FC<LoginProps> = () => {
                   Forgot your password?
                 </a>
               </div>
-            </div>
+            </div> */}
 
             <div className="mt-6">
               <span className="block w-full rounded-md shadow-sm">
@@ -73,7 +71,7 @@ const Login: React.FC<LoginProps> = () => {
                   type="submit"
                   className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
                 >
-                  Sign in
+                  Login
                 </button>
               </span>
             </div>

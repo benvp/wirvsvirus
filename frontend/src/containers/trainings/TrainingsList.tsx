@@ -1,7 +1,6 @@
 import React from 'react';
 import { Training } from '../../types/globalTypes';
 import { Pagination } from '../../components/Pagination/Pagination';
-import { PageHeader } from '../../components/PageHeader/PageHeader';
 
 type ListRowProps = {
   className?: string;
@@ -67,7 +66,6 @@ type TrainingsTableProps = {
 export const TrainingsList: React.FC<TrainingsTableProps> = () => {
   return (
     <div>
-      <PageHeader title="Upcomping Trainings" />
       <div className="bg-white shadow overflow-hidden sm:rounded-md">
         <ul>
           <ListRow training={{}} />
