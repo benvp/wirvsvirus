@@ -22,6 +22,7 @@ export class UpdateTrainingDto {
   youtubeVideo: string;
 
   @IsNotEmpty()
+  @IsOptional()
   conferenceLink: string;
 
   @IsNotEmpty()

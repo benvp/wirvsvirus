@@ -47,7 +47,11 @@ export class Training extends BaseEntity {
   @Column()
   professional: boolean;
 
-  @ManyToOne(type => User, x => x.hostTrainings, { eager: true })
+  @ManyToOne(
+    type => User,
+    x => x.hostTrainings,
+    { eager: true },
+  )
   host: User;
 
   @ManyToMany(type => User, { nullable: true, eager: true })

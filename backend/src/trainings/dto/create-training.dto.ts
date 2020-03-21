@@ -19,6 +19,7 @@ export class CreateTrainingDto {
   youtubeVideo: string;
 
   @IsNotEmpty()
+  @IsOptional()
   conferenceLink: string;
 
   @IsNotEmpty()
