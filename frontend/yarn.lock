@@ -1038,6 +1038,13 @@
   dependencies:
     "@types/react" "*"
 
+"@types/react-tag-autocomplete@^5.12.0":
+  version "5.12.0"
+  resolved "https://registry.yarnpkg.com/@types/react-tag-autocomplete/-/react-tag-autocomplete-5.12.0.tgz#bcebefd07abd20ee7a1d9594cf4f2f0297625868"
+  integrity sha512-QvPBUrXnkU5e3EaHiXQcI0oRsV1JwvL2vvgXtY5x7SkW19O3FRGFdcPg4+SA545+pcIsijf1O2wQ/sCCTeEe9w==
+  dependencies:
+    "@types/react" "*"
+
 "@types/react@*", "@types/react@^16.9.23":
   version "16.9.23"
   resolved "https://registry.yarnpkg.com/@types/react/-/react-16.9.23.tgz#1a66c6d468ba11a8943ad958a8cb3e737568271c"
@@ -5419,6 +5426,11 @@ react-query@^1.0.33:
   version "1.0.33"
   resolved "https://registry.yarnpkg.com/react-query/-/react-query-1.0.33.tgz#b9b973b33a4173833b6cf097bceba9ba9e286530"
   integrity sha512-C4uT9zNMLYnPSQ0EWmR5idaNX6IGmvnvmx/i2tqPIdI6g8a8LzG7W/Fo/pING2VzeT38okTXJkRwhla6hb/ezQ==
+
+react-tag-autocomplete@^5.12.1:
+  version "5.12.1"
+  resolved "https://registry.yarnpkg.com/react-tag-autocomplete/-/react-tag-autocomplete-5.12.1.tgz#f6a56aaa151771af3db99780b5f32150e827e835"
+  integrity sha512-tVY1U/QLfwtkkaPWVVE+MZl7w27Sbzms1atWT+x/PQdN46aPwrViMx02vUQ0TGD4IWPT5sFtdfv6/Pf0qcYhSw==
 
 react@16.13.1:
   version "16.13.1"

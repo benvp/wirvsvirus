@@ -24,7 +24,7 @@ export const ListRow: React.FC<ListRowProps> = ({ className, training }) => {
             <div className="min-w-0 flex-1 sm:flex sm:items-center sm:justify-between">
               <div>
                 <div className="text-sm leading-5 font-medium text-indigo-600 truncate">
-                  Training
+                  {training.name}
                   <span className="ml-1 font-normal text-gray-500">
                     von {training?.host?.displayName}
                   </span>
@@ -32,7 +32,7 @@ export const ListRow: React.FC<ListRowProps> = ({ className, training }) => {
                 <div className="mt-2 flex">
                   {training.tags?.map((t, idx) => (
                     <Tag key={t.id} className={idx > 0 ? 'ml-2' : undefined}>
-                      {t.name}
+                      {t.text}
                     </Tag>
                   ))}
                 </div>

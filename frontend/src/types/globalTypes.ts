@@ -23,7 +23,7 @@ export interface User {
 
 export interface Tag {
   id: number;
-  name: string;
+  text: string;
 }
 
 export enum Role {

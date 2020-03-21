@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PageHeader } from '@@components/PageHeader/PageHeader';
 import Link from 'next/link';
 import { ROUTES } from '@@modules/routes';
@@ -6,16 +6,47 @@ import { useFormik, useField } from 'formik';
 import * as Yup from 'yup';
 import { Button } from '@@components/Button/Button';
 import DatePicker from 'react-datepicker';
+import { useFetch, apiRoutes } from '@@modules/api/api';
+import { useQuery, useMutation } from 'react-query';
+import { Tag } from '@@/types/globalTypes';
+import ReactTags, { Tag as AutocompleteTag } from 'react-tag-autocomplete';
+import { useRouter } from 'next/router';
 
 type NewTrainingPageProps = {};
 
 export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
+  const fetch = useFetch();
+  const router = useRouter();
+
+  const [suggestions, setSuggestions] = useState<Tag[]>([]);
+
+  const { data: tags = [] } = useQuery<Tag[], any>('tags', () =>
+    fetch(apiRoutes.tags).then(res => res.json()),
+  );
+
+  const [createTraining] = useMutation((values: any) =>
+    fetch(apiRoutes.trainings, { method: 'POST', body: JSON.stringify(values) }),
+  );
+
+  const convertTag = (tag: Tag): AutocompleteTag => ({
+    id: tag.id,
+    name: tag.text,
+  });
+
+  const filterSuggestions = (query: string) => {
+    const filtered = tags.filter(x => x.text.toLowerCase().startsWith(query.toLowerCase()));
+
+    setSuggestions(filtered);
+
+    return filtered.map(convertTag);
+  };
+
   const formik = useFormik({
     initialValues: {
       name: '',
       description: '',
-      date: '',
-      tags: '',
+      date: new Date(),
+      tags: [] as Tag[],
       professional: false,
     },
     validateOnMount: true,
@@ -24,7 +55,15 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
       date: Yup.date().required(),
     }),
     onSubmit: values => {
-      console.log(values);
+      const dto = {
+        name: values.name,
+        description: values.description,
+        date: values.date,
+        professional: values.professional,
+        tagIDs: values.tags.map(x => x.id),
+      };
+
+      return createTraining(dto).then(() => router.push(ROUTES.TRAININGS));
     },
   });
 
@@ -42,7 +81,7 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
                       htmlFor="name"
                       className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px"
                     >
-                      Name
+                      Name <span className="text-red-700">*</span>
                     </label>
                     <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
                       Gib deinem Training einen Namen.
@@ -54,6 +93,7 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
                         id="name"
                         onChange={formik.handleChange}
                         value={formik.values.name}
+                        required
                         className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                       />
                     </div>
@@ -89,7 +129,7 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
                       htmlFor="date"
                       className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px"
                     >
-                      Datum
+                      Datum <span className="text-red-700">*</span>
                     </label>
                     <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
                       Wann soll das Training stattfinden?
@@ -104,12 +144,6 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
                         selected={formik.values.date ? new Date(formik.values.date) : new Date()}
                         dateFormat="Pp"
                       />
-                      {/* <input
-                        id="date"
-                        onChange={formik.handleChange}
-                        value={formik.values.date}
-                        className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                      /> */}
                     </div>
                   </div>
                 </div>
@@ -125,11 +159,23 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
                   </div>
                   <div className="mt-1 sm:mt-0 sm:col-span-2">
                     <div className="max-w-xs rounded-md shadow-sm">
-                      <input
-                        id="tags"
-                        onChange={formik.handleChange}
-                        value={formik.values.tags}
-                        className="form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                      <ReactTags
+                        minQueryLength={1}
+                        tags={formik.values.tags.map(convertTag)}
+                        suggestions={suggestions.map(convertTag)}
+                        handleInputChange={filterSuggestions}
+                        handleDelete={idx => {
+                          formik.setFieldValue('tags', [
+                            ...formik.values.tags.slice(0, idx),
+                            ...formik.values.tags.slice(idx + 1),
+                          ]);
+                        }}
+                        handleAddition={t => {
+                          formik.setFieldValue('tags', [
+                            ...formik.values.tags,
+                            { id: t.id, text: t.name },
+                          ]);
+                        }}
                       />
                     </div>
                   </div>
