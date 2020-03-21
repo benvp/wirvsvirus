@@ -15,7 +15,9 @@ export class TrainingsService {
     private readonly logger: Logger,
   ) { }
 
-  getAll = (dto: SearchDto) =>
+  getAll = () => this.repository.getAll();
+
+  find = (dto: SearchDto) =>
     this.repository.getAll(dto.search, dto.page, dto.itemsPerPage);
 
   getById = async (id: number): Promise<Training> => {

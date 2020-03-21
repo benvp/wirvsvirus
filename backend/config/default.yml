@@ -8,4 +8,4 @@ db:
 
 jwt:
   secret: 'Mpo+yZoWbU;mwK2zpif?B+HP3'
-  expiresIn: 3600
+  expiresIn: 36000

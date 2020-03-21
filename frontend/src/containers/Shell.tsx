@@ -52,7 +52,7 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
                 </NavLink>
 
                 <NavLink href={ROUTES.SIGN_UP} active={route === ROUTES.SIGN_UP} className="ml-8">
-                  Sign Up
+                  Registrieren
                 </NavLink>
 
                 <NavLink href={ROUTES.LOGIN} active={route === ROUTES.LOGIN} className="ml-8">

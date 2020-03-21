@@ -1,14 +1,15 @@
 import React from 'react';
 import { Training } from '../../types/globalTypes';
 import { Pagination } from '../../components/Pagination/Pagination';
-import { PageHeader } from '../../components/PageHeader/PageHeader';
+import { Tag } from '@@components/core/Tag';
+import { format } from 'date-fns';
 
 type ListRowProps = {
   className?: string;
   training: Training;
 };
 
-export const ListRow: React.FC<ListRowProps> = ({ className }) => {
+export const ListRow: React.FC<ListRowProps> = ({ className, training }) => {
   return (
     <li className={className}>
       <a
@@ -20,26 +21,23 @@ export const ListRow: React.FC<ListRowProps> = ({ className }) => {
             <div>
               <div className="text-sm leading-5 font-medium text-indigo-600 truncate">
                 Training
-                <span className="ml-1 font-normal text-gray-500">von Maro Rudolf</span>
+                <span className="ml-1 font-normal text-gray-500">
+                  von {training?.user?.displayName}
+                </span>
               </div>
               <div className="mt-2 flex">
-                <div className="flex-shrink-0 flex">
-                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-blue-100 text-blue-800">
-                    Beginner
-                  </span>
-                </div>
-                <div className="ml-2 flex-shrink-0 flex">
-                  <span className="px-2 inline-flex text-xs leading-5 font-semibold rounded-full bg-green-100 text-green-800">
-                    Yoga
-                  </span>
-                </div>
+                {training.tags?.map((t, idx) => (
+                  <Tag key={t.id} className={idx > 0 ? 'ml-2' : undefined}>
+                    {t.name}
+                  </Tag>
+                ))}
               </div>
             </div>
             <div className="mt-4 flex-shrink-0 sm:mt-0">
               <div className="flex">
                 <div className="flex items-center text-sm leading-5 text-gray-500">
                   <span>
-                    <time dateTime="2020-01-07">January 7, 2020 - 13:00</time>
+                    <time dateTime="2020-01-07">{format(new Date(training.date), 'Pp')}</time>
                   </span>
                 </div>
               </div>
@@ -64,21 +62,26 @@ type TrainingsTableProps = {
   trainings: Training[];
 };
 
-export const TrainingsList: React.FC<TrainingsTableProps> = () => {
+export const TrainingsList: React.FC<TrainingsTableProps> = ({ trainings }) => {
   return (
     <div>
-      <PageHeader title="Upcomping Trainings" />
-      <div className="bg-white shadow overflow-hidden sm:rounded-md">
-        <ul>
-          <ListRow training={{}} />
-          <ListRow training={{}} className="border-t border-gray-200" />
-          <ListRow training={{}} className="border-t border-gray-200" />
-          <ListRow training={{}} className="border-t border-gray-200" />
-        </ul>
-      </div>
-      <div className="px-4">
-        <Pagination />
-      </div>
+      {trainings.length === 0 ? (
+        <div className="flex justify-center align-middle text-gray-600 font-medium">
+          Keine Trainings vorhanden.
+        </div>
+      ) : (
+        <div className="bg-white shadow overflow-hidden sm:rounded-md">
+          <ul>
+            {trainings.map((t, idx) => (
+              <ListRow
+                key={t.id}
+                training={t}
+                className={idx > 0 ? 'border-t border-gray-200' : undefined}
+              />
+            ))}
+          </ul>
+        </div>
+      )}
     </div>
   );
 };

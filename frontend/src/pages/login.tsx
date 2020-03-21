@@ -1,29 +1,78 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { useFormik } from 'formik';
+import { useMutation } from 'react-query';
+import { Button } from '@@components/Button/Button';
+import { AuthInfo } from '../types/globalTypes';
+import { useRouter } from 'next/router';
+import { ROUTES } from '@@modules/routes';
+import { useAuthInfo } from '../context/AuthContext';
+import { API_ROUTES } from '@@modules/api/api';
+
+type Credentials = {
+  username: string;
+  password: string;
+};
 
 type LoginProps = {};
 
 const Login: React.FC<LoginProps> = () => {
+  const router = useRouter();
+  const { setAuth, auth } = useAuthInfo();
+
+  const [login, { data, status }] = useMutation<AuthInfo, any>((credentials: Credentials) =>
+    fetch(API_ROUTES.LOGIN, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials),
+    }).then(res => res.json()),
+  );
+
+  useEffect(() => {
+    if (auth?.accessToken) {
+      router.replace(ROUTES.TRAININGS);
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    if (data?.accessToken) {
+      setAuth(data);
+      router.push(ROUTES.TRAININGS);
+    }
+  }, [data]);
+
+  const unauthorized = (data as any)?.statusCode === 401;
+
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+    },
+    onSubmit: values => {
+      return login(values);
+    },
+  });
+
   return (
     <div className="flex flex-col justify-start sm:px-6">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
-        <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">
-          Login to your account
-        </h2>
+        <h2 className="mt-6 text-center text-3xl leading-9 font-extrabold text-gray-900">Login</h2>
       </div>
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form action="#" method="POST">
+          <form onSubmit={formik.handleSubmit}>
             <div>
               <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">
-                Email address
+                E-Mail Adresse
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
-                  id="email"
-                  type="email"
-                  required
+                  id="username"
+                  // type="email"
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  required
+                  onChange={formik.handleChange}
+                  value={formik.values.username}
                 />
               </div>
             </div>
@@ -33,19 +82,24 @@ const Login: React.FC<LoginProps> = () => {
                 htmlFor="password"
                 className="block text-sm font-medium leading-5 text-gray-700"
               >
-                Password
+                Passwort
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
                   id="password"
                   type="password"
-                  required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
+                  required
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
                 />
               </div>
             </div>
+            {unauthorized && (
+              <div className="mt-6 text-red-500">Benutzername oder Passwort falsch.</div>
+            )}
 
-            <div className="mt-6 flex items-center justify-between">
+            {/* <div className="mt-6 flex items-center justify-between">
               <div className="flex items-center">
                 <input
                   id="remember_me"
@@ -65,16 +119,13 @@ const Login: React.FC<LoginProps> = () => {
                   Forgot your password?
                 </a>
               </div>
-            </div>
+            </div> */}
 
             <div className="mt-6">
               <span className="block w-full rounded-md shadow-sm">
-                <button
-                  type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
-                >
-                  Sign in
-                </button>
+                <Button disabled={status === 'loading'} className="w-full" type="submit">
+                  Login
+                </Button>
               </span>
             </div>
           </form>
