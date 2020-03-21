@@ -102,8 +102,13 @@ export const TrainingsList: React.FC<TrainingsTableProps> = ({ trainings }) => {
   return (
     <div>
       {trainings.length === 0 ? (
-        <div className="flex justify-center align-middle text-gray-600 font-medium">
-          Keine Trainings vorhanden.
+        <div className="flex justify-center align-middle text-gray-600 font-medium text-center">
+          <div>Keine Trainings vorhanden.</div>
+          <Link href={ROUTES.TRAININGS_NEW}>
+            <a className="ml-2 text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+              Jetzt Training planen.
+            </a>
+          </Link>
         </div>
       ) : (
         <div className="bg-white shadow overflow-hidden sm:rounded-md">

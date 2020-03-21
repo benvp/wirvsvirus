@@ -9,6 +9,7 @@ export interface Training {
   tags: Tag[];
   professional: boolean;
   attendees: User[];
+  conferenceLink: string;
 }
 
 export interface AuthInfo {

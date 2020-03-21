@@ -55,7 +55,7 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
 
                 <NavLink
                   href={ROUTES.TRAININGS}
-                  active={route === ROUTES.TRAININGS}
+                  active={route.includes(ROUTES.TRAININGS)}
                   className="ml-8"
                 >
                   Trainings

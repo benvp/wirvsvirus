@@ -1,10 +1,21 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import Link from 'next/link';
 import { ROUTES } from '@@modules/routes';
+import { useAuthInfo } from '@@/context/AuthContext';
+import { useRouter } from 'next/router';
 
 type SignUpProps = {};
 
 const SignUp: React.FC<SignUpProps> = () => {
+  const { auth } = useAuthInfo();
+  const router = useRouter();
+
+  useEffect(() => {
+    if (auth?.accessToken) {
+      router.replace(ROUTES.TRAININGS);
+    }
+  }, [auth]);
+
   return (
     <div className="flex flex-col justify-start sm:px-6">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -37,7 +48,7 @@ const SignUp: React.FC<SignUpProps> = () => {
               <div className="mt-1 rounded-md shadow-sm">
                 <input
                   id="email"
-                  type="email"
+                  type="text"
                   required
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                 />

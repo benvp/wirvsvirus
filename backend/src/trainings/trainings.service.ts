@@ -41,6 +41,7 @@ export class TrainingsService {
     training.youtubeVideo = dto.youtubeVideo;
     training.pictureLink = dto.pictureLink;
     training.professional = dto.professional;
+    training.attendees = [user];
 
     // Generate Conference Link
     training.conferenceLink = `https://meet.jit.si/${slugify(dto.name)}-${nanoid(10)}`
