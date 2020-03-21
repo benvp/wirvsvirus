@@ -1,11 +1,11 @@
 export interface Training {
-  id: string;
+  id: number;
   name: string;
   description: string;
   date: string;
   createdDate: string;
   videoLink: string;
-  user: User;
+  host: User;
   tags: Tag[];
 }
 
@@ -22,7 +22,7 @@ export interface User {
 }
 
 export interface Tag {
-  id: string;
+  id: number;
   name: string;
 }
 

@@ -6,7 +6,7 @@ import { AuthInfo } from '../types/globalTypes';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@@modules/routes';
 import { useAuthInfo } from '../context/AuthContext';
-import { API_ROUTES } from '@@modules/api/api';
+import { apiRoutes } from '@@modules/api/api';
 
 type Credentials = {
   username: string;
@@ -20,7 +20,7 @@ const Login: React.FC<LoginProps> = () => {
   const { setAuth, auth } = useAuthInfo();
 
   const [login, { data, status }] = useMutation<AuthInfo, any>((credentials: Credentials) =>
-    fetch(API_ROUTES.LOGIN, {
+    fetch(apiRoutes.login, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(credentials),

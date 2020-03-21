@@ -3,3 +3,11 @@
 @tailwind components;
 
 @tailwind utilities;
+
+.react-datepicker-wrapper {
+  @apply w-full;
+}
+
+.react-datepicker__input-container input {
+  @apply form-input block w-full transition duration-150 ease-in-out text-sm leading-5;
+}

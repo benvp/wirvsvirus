@@ -1,12 +1,15 @@
 import { useAuthInfo } from '@@/context/AuthContext';
+import { useRouter } from 'next/router';
+import { ROUTES } from '@@modules/routes';
 
 export const API_BASE_URL = 'http://localhost:3001';
 
 const apiRoute = (r: string) => `${API_BASE_URL}${r}`;
 
-export const API_ROUTES = {
-  LOGIN: apiRoute('/auth/signin'),
-  TRAININGS: apiRoute('/trainings'),
+export const apiRoutes = {
+  login: apiRoute('/auth/signin'),
+  trainings: apiRoute('/trainings'),
+  training: (id: number) => apiRoute(`/trainings/${id}`),
 };
 
 export const useFetch = () => {
@@ -19,5 +22,11 @@ export const useFetch = () => {
         'Content-Type': 'application/json',
       },
       ...init,
+    }).then(res => {
+      if (res.status === 401) {
+        auth.setAuth(undefined);
+      }
+
+      return res;
     });
 };
