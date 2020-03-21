@@ -19,6 +19,9 @@ export class Training extends BaseEntity {
   @Column()
   createdDate: Date;
 
+  @Column({ nullable: true })
+  modifiedDate: Date;
+
   @Column()
   name: string;
 

@@ -1,4 +1,4 @@
-import { Body, Controller, Post, UseGuards, UsePipes, ValidationPipe, HttpCode, Get, Param, ParseIntPipe } from '@nestjs/common';
+import { Body, Controller, Post, UseGuards, UsePipes, ValidationPipe, HttpCode, Get, Param, ParseIntPipe, Patch, Delete } from '@nestjs/common';
 
 import { TrainingsService } from './trainings.service';
 import { Training } from './training.entity';
@@ -11,6 +11,7 @@ import { GetUser } from '../auth/get-user.decorator';
 import { User } from '../auth/user.entity';
 import { SearchDto } from '../dto/search.dto';
 import { PagingResult } from '../types';
+import { UpdateTrainingDto } from './dto/update-training.dto';
 
 @Controller('trainings')
 export class TrainingsController {
@@ -41,6 +42,35 @@ export class TrainingsController {
     @Body() dto: CreateTrainingDto,
   ): Promise<Training> {
     return this.service.createTraining(dto, user);
+  }
+
+  @Patch(':id')
+  @UseGuards(ApiAuthGuard, RolesGuard)
+  @Roles(
+    Role.ADMIN,
+    Role.TRIMMED,
+    Role.TRIMMER,
+  )
+  updateTraining(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+    @Body() dto: UpdateTrainingDto,
+  ): Promise<Training> {
+    return this.service.updateTraining(id, dto, user);
+  }
+
+  @Delete(':id')
+  @UseGuards(ApiAuthGuard, RolesGuard)
+  @Roles(
+    Role.ADMIN,
+    Role.TRIMMED,
+    Role.TRIMMER,
+  )
+  deleteTraining(
+    @Param('id', ParseIntPipe) id: number,
+    @GetUser() user: User,
+  ): Promise<void> {
+    return this.service.deleteTraining(id, user);
   }
 
   @Post('find')
