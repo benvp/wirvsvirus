@@ -12,6 +12,7 @@ type TrainingsProps = {};
 
 const Trainings: React.FC<TrainingsProps> = () => {
   const fetch = useFetch();
+
   const { data, status } = useQuery<PagedResult<Training>, any>('trainings', () =>
     fetch(API_ROUTES.TRAININGS).then(res => res.json()),
   );

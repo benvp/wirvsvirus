@@ -22,11 +22,11 @@ export const ListRow: React.FC<ListRowProps> = ({ className, training }) => {
               <div className="text-sm leading-5 font-medium text-indigo-600 truncate">
                 Training
                 <span className="ml-1 font-normal text-gray-500">
-                  von {training.user.displayName}
+                  von {training?.user?.displayName}
                 </span>
               </div>
               <div className="mt-2 flex">
-                {training.tags.map((t, idx) => (
+                {training.tags?.map((t, idx) => (
                   <Tag key={t.id} className={idx > 0 ? 'ml-2' : undefined}>
                     {t.name}
                   </Tag>
