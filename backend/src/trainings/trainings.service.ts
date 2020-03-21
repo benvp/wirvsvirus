@@ -97,7 +97,7 @@ export class TrainingsService {
 
   unattendTraining = async (id: number, user: User) => {
     const training = await this.getById(id);
-    training.attendees = training.attendees.filter(x => x.id === user.id);
+    training.attendees = training.attendees.filter(x => x.id !== user.id);
     return training.save();
   }
 }
