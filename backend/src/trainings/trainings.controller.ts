@@ -19,7 +19,6 @@ export class TrainingsController {
 
   @Get()
   @HttpCode(200)
-  @UseGuards(ApiAuthGuard, RolesGuard)
   @Roles(
     Role.ADMIN,
     Role.TRIMMED,
