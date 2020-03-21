@@ -41,16 +41,12 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
           <div className="flex justify-between h-16">
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
-                <img
-                  className="block lg:hidden h-8 w-auto"
-                  src="/img/logos/workflow-mark-on-white.svg"
-                  alt=""
-                />
-                <img
-                  className="hidden lg:block h-8 w-auto"
-                  src="/img/logos/workflow-logo-on-white.svg"
-                  alt=""
-                />
+                <Link href={ROUTES.ROOT}>
+                  <a>
+                    <img className="block lg:hidden h-8 w-auto" src="/img/trimmy.png" alt="" />
+                    <img className="hidden lg:block h-8 w-auto" src="/img/trimmy.png" alt="" />
+                  </a>
+                </Link>
               </div>
               <div className="hidden sm:ml-6 sm:flex">
                 <NavLink href={ROUTES.ROOT} active={route === ROUTES.ROOT}>
