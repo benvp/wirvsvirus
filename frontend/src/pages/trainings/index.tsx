@@ -51,14 +51,18 @@ const Trainings: React.FC<TrainingsProps> = () => {
 
   return (
     <div>
-      <PageHeader title="Meine nächsten Trainings" rightContent={ActionButtons} />
-      {status === 'loading' ? (
-        <BulletList foregroundColor="#e2e8f0" backgroundColor="#edf2f7" width="50%" />
-      ) : (
-        <TrainingsList trainings={myTrainings} />
+      {user && (
+        <div>
+          <PageHeader title="Meine nächsten Trainings" rightContent={ActionButtons} />
+          {status === 'loading' ? (
+            <BulletList foregroundColor="#e2e8f0" backgroundColor="#edf2f7" width="50%" />
+          ) : (
+            <TrainingsList trainings={myTrainings} />
+          )}
+          <div className="mt-20" />
+        </div>
       )}
-      <div className="mt-20" />
-      <PageHeader title="Andere Trainings" rightContent={ActionButtons} />
+      <PageHeader title="Offene Trainings" rightContent={user && ActionButtons} />
       {status === 'loading' ? (
         <BulletList foregroundColor="#e2e8f0" backgroundColor="#edf2f7" width="50%" />
       ) : (
@@ -68,4 +72,4 @@ const Trainings: React.FC<TrainingsProps> = () => {
   );
 };
 
-export default requireAuth(Trainings);
+export default Trainings;

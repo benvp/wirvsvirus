@@ -7,6 +7,7 @@ import { useRouter } from 'next/router';
 import { ROUTES } from '@@modules/routes';
 import { useAuthInfo } from '../context/AuthContext';
 import { apiRoutes } from '@@modules/api/api';
+import Link from 'next/link';
 
 type Credentials = {
   username: string;
@@ -98,6 +99,17 @@ const Login: React.FC<LoginProps> = () => {
             {unauthorized && (
               <div className="mt-6 text-red-500">Benutzername oder Passwort falsch.</div>
             )}
+
+            <div className="mt-6 flex items-center justify-between">
+              <div className="text-sm leading-5">
+                Du hast noch keinen Account?
+                <Link href={ROUTES.SIGN_UP}>
+                  <a className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                    Jetzt Mitmachen
+                  </a>
+                </Link>
+              </div>
+            </div>
 
             {/* <div className="mt-6 flex items-center justify-between">
               <div className="flex items-center">
