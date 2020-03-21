@@ -21,7 +21,7 @@ export class TagsRepository extends Repository<Tag> {
       : ['text'].map(f => `"${f}" ILIKE :search`).join(' OR ');
 
     query.where(conditions, { search: `${str}%` });
-    query.orderBy('name', 'ASC');
+    query.orderBy('text', 'ASC');
     return query.getMany();
   }
 

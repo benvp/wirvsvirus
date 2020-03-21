@@ -13,8 +13,17 @@ export class TagsController {
   constructor(private readonly service: TagsService) { }
 
   @Get('/:text')
+  @UseGuards(ApiAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.TRIMMED, Role.TRIMMER)
   getTag(@Param('text') text: string): Promise<Tag[]> {
     return this.service.findTag(text);
+  }
+
+  @Get()
+  @UseGuards(ApiAuthGuard, RolesGuard)
+  @Roles(Role.ADMIN, Role.TRIMMED, Role.TRIMMER)
+  getAllTags(): Promise<Tag[]> {
+    return this.service.getAll();
   }
 
   @Post()
