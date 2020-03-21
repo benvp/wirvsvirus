@@ -8,4 +8,5 @@ export const ROUTES = {
   SIGN_UP: '/sign-up',
   TRAININGS: '/trainings',
   training: (id: number) => `/trainings/${id}`,
+  TRAININGS_NEW: '/trainings/new',
 };
