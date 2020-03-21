@@ -20,8 +20,10 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
 
   const [suggestions, setSuggestions] = useState<Tag[]>([]);
 
-  const { data: tags = [] } = useQuery<Tag[], any>('tags', () =>
-    fetch(apiRoutes.tags).then(res => res.json()),
+  const { data: tags = [] } = useQuery<Tag[], any>(
+    'tags',
+    () => fetch(apiRoutes.tags).then(res => res.json()),
+    { initialData: [] },
   );
 
   const [createTraining] = useMutation((values: any) =>
@@ -36,6 +38,7 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
   });
 
   const filterSuggestions = (query: string) => {
+    console.log('tags', tags);
     const filtered = tags.filter(x => x.text.toLowerCase().startsWith(query.toLowerCase()));
 
     setSuggestions(filtered);

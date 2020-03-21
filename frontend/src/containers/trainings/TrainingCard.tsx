@@ -32,8 +32,6 @@ export const TrainingCard: React.FC<TrainingCardProps> = () => {
     }).then(res => res.json()),
   );
 
-  console.log('trai', training);
-
   return (
     <div className="bg-white shadow overflow-hidden  sm:rounded-lg">
       {status === 'loading' || !training ? (
@@ -44,10 +42,12 @@ export const TrainingCard: React.FC<TrainingCardProps> = () => {
         <div>
           <div className="px-4 py-5 border-b border-gray-200 sm:px-6 flex justify-between">
             <div>
-              <h3 className="ml-2 text-lg leading-6 font-medium text-gray-900">{training.name}</h3>
-              <div className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+              <h3 className="ml-2 mb-2 text-lg leading-6 font-medium text-gray-900">
+                {training.name}
+              </h3>
+              <div className="flex mt-1 max-w-2xl text-sm leading-5 text-gray-500">
                 {training.tags?.map((t, idx) => (
-                  <Tag key={t.id} className={idx > 0 ? 'ml-4' : undefined}>
+                  <Tag key={t.id} className={idx > 0 ? 'ml-2' : undefined}>
                     {t.text}
                   </Tag>
                 ))}

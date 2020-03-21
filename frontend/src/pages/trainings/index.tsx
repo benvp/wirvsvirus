@@ -9,15 +9,19 @@ import { BulletList } from 'react-content-loader';
 import { PagedResult } from '@@modules/api/types';
 import Link from 'next/link';
 import { ROUTES } from '@@modules/routes';
+import { useCurrentUser } from '@@/context/AuthContext';
 
 type TrainingsProps = {};
 
 const Trainings: React.FC<TrainingsProps> = () => {
   const fetch = useFetch();
+  const user = useCurrentUser();
 
   const { data, status } = useQuery<PagedResult<Training>, any>('trainings', () =>
     fetch(apiRoutes.trainings).then(res => res.json()),
   );
+
+  const myTrainings = data?.items.filter(t => t.attendees.find(a => a.id === user?.id)) ?? [];
 
   const ActionButtons = (
     <span className="ml-3 shadow-sm rounded-md">
@@ -47,7 +51,14 @@ const Trainings: React.FC<TrainingsProps> = () => {
 
   return (
     <div>
-      <PageHeader title="Nächste Trainings" rightContent={ActionButtons} />
+      <PageHeader title="Meine nächsten Trainings" rightContent={ActionButtons} />
+      {status === 'loading' ? (
+        <BulletList foregroundColor="#e2e8f0" backgroundColor="#edf2f7" width="50%" />
+      ) : (
+        <TrainingsList trainings={myTrainings} />
+      )}
+      <div className="mt-20" />
+      <PageHeader title="Andere Trainings" rightContent={ActionButtons} />
       {status === 'loading' ? (
         <BulletList foregroundColor="#e2e8f0" backgroundColor="#edf2f7" width="50%" />
       ) : (

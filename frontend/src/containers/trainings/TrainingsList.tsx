@@ -72,7 +72,7 @@ export const ListRow: React.FC<ListRowProps> = ({ className, training }) => {
                   </div>
                   <div className="flex items-center text-sm leading-5 text-gray-500">
                     <span>
-                      <time dateTime="2020-01-07">{format(new Date(training.date), 'Pp')}</time>
+                      <time dateTime="2020-01-07">{format(new Date(training.date), 'PPPPp')}</time>
                     </span>
                   </div>
                 </div>
