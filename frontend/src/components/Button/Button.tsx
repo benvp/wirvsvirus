@@ -6,7 +6,12 @@ type ButtonProps = React.DetailedHTMLProps<
   HTMLButtonElement
 >;
 
-export const Button: React.FC<ButtonProps> = ({ disabled, className, ...buttonProps }) => {
+export const Button: React.FC<ButtonProps> = ({
+  disabled,
+  children,
+  className,
+  ...buttonProps
+}) => {
   const disabledClass =
     'bg-indigo-500 text-white font-bold py-2 px-4 rounded opacity-50 cursor-not-allowed';
   const buttonClass =
@@ -17,7 +22,7 @@ export const Button: React.FC<ButtonProps> = ({ disabled, className, ...buttonPr
       className={classnames(disabled ? disabledClass : buttonClass, className)}
       {...buttonProps}
     >
-      Login
+      {children}
     </button>
   );
 };

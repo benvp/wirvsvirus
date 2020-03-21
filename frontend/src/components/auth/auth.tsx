@@ -6,10 +6,11 @@ import { ROUTES } from '@@modules/routes';
 export const requireAuth = <P extends object = {}>(WrappedComponent: React.ComponentType<P>) => {
   const Wrapper: React.FC<P> = props => {
     const router = useRouter();
-    const { auth } = useAuthInfo();
+    const { auth, setAuth } = useAuthInfo();
 
     useEffect(() => {
       if (!auth?.accessToken) {
+        setAuth(undefined);
         router.replace(ROUTES.LOGIN);
       }
     }, [auth]);
