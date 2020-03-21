@@ -15,6 +15,7 @@
     "next": "9.3.1",
     "react": "16.13.1",
     "react-dom": "16.13.1",
+    "react-query": "^1.0.33",
     "sass": "^1.26.3",
     "styled-components": "^5.0.1",
     "tailwind.macro": "^1.0.0-alpha.10",
