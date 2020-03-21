@@ -17,7 +17,7 @@ export class TrainingsRepository extends Repository<Training> {
       const searchFields = [
         'name', 'description'
       ];
-      const conditions = dbConfig.type === 'mysql'
+      const conditions = (process.env.DB_TYPE || dbConfig.type) === 'mysql'
         ? searchFields.map(f => `${f} LIKE :search`).join(' OR ')
         : searchFields.map(f => `"${f}" ILIKE :search`).join(' OR ');
 

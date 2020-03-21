@@ -8,6 +8,7 @@ const apiRoute = (r: string) => `${API_BASE_URL}${r}`;
 
 export const apiRoutes = {
   login: apiRoute('/auth/signin'),
+  tags: apiRoute('/tags'),
   trainings: apiRoute('/trainings'),
   training: (id: number) => apiRoute(`/trainings/${id}`),
 };

@@ -32,13 +32,13 @@ export const TrainingCard: React.FC<TrainingCardProps> = () => {
           <div className="px-4 py-5 border-b border-gray-200 sm:px-6 flex justify-between">
             <div>
               <h3 className="text-lg leading-6 font-medium text-gray-900">{training.name}</h3>
-              <p className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
+              <div className="mt-1 max-w-2xl text-sm leading-5 text-gray-500">
                 {training.tags?.map((t, idx) => (
                   <Tag key={t.id} className={idx > 0 ? 'ml-4' : undefined}>
-                    {t.name}
+                    {t.text}
                   </Tag>
                 ))}
-              </p>
+              </div>
             </div>
             <div className="flex align-middle justify-center">
               <p className="self-center text-gray-600 text-sm">
