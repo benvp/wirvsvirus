@@ -2,7 +2,7 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 
 import { AuthModule } from './auth/auth.module';
 import { Module } from '@nestjs/common';
-import { TagsModule } from './tags/candidates.module';
+import { TagsModule } from './tags/tags.module';
 import { TrainingsModule } from './trainings/trainings.module';
 import { WinstonModule } from 'nest-winston';
 import { loggerOptions } from './logger';

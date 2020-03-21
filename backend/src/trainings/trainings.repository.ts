@@ -10,7 +10,7 @@ const dbConfig = config.get('db');
 @EntityRepository(Training)
 export class TrainingsRepository extends Repository<Training> {
   getAll = async (search?: string, page: number = 0, itemsPerPage: number = 20): Promise<PagingResult<Training>> => {
-    const query = this.createQueryBuilder();
+    const query = this.createQueryBuilder('training')
     const tQuery = this.createQueryBuilder();
 
     if (search && search.trim() !== '') {
@@ -25,7 +25,10 @@ export class TrainingsRepository extends Repository<Training> {
       tQuery.where(conditions, { search: `%${search}%` });
     }
     query.take(itemsPerPage).skip(page * itemsPerPage);
-    query.orderBy('"createdDate"', 'DESC');
+    query.orderBy('training.createdDate', 'DESC');
+    query.leftJoinAndSelect('training.host', 'host')
+    query.leftJoinAndSelect('training.tags', 'tags')
+    query.leftJoinAndSelect('training.attendees', 'attendees')
     const items = await query.getMany();
     const total = await tQuery.getCount();
 

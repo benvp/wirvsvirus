@@ -31,8 +31,11 @@ export class Training extends BaseEntity {
   @Column()
   date: Date;
 
-  @Column()
+  @Column({ nullable: true })
   conferenceLink: string;
+
+  @Column({ nullable: true })
+  youtubeVideo: string;
 
   @ManyToMany(type => Tag, { nullable: true })
   @JoinTable()
@@ -41,7 +44,7 @@ export class Training extends BaseEntity {
   @Column()
   professional: boolean;
 
-  @ManyToOne(type => User, x => x.hostTrainings, { eager: false })
+  @ManyToOne(type => User, x => x.hostTrainings, { eager: true })
   host: User;
 
   @ManyToMany(type => User, { nullable: true })

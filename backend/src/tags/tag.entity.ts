@@ -11,5 +11,5 @@ export class Tag extends BaseEntity {
   id: number;
 
   @Column()
-  name: string;
+  text: string;
 }

@@ -13,11 +13,11 @@ export class TagsController {
   constructor(private readonly service: TagsService) { }
 
   @Get('/:text')
-  getCandidates(@Param('text') text: string): Promise<Tag[]> {
+  getTag(@Param('text') text: string): Promise<Tag[]> {
     return this.service.findTag(text);
   }
 
-  @Post('/tag')
+  @Post()
   @UseGuards(ApiAuthGuard, RolesGuard)
   @Roles(Role.ADMIN, Role.TRIMMED, Role.TRIMMER)
   createTag(@Body() dto: CreateTagDto): Promise<Tag> {
