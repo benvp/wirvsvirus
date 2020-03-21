@@ -1,4 +1,13 @@
-export interface Training {}
+export interface Training {
+  id: string;
+  name: string;
+  description: string;
+  date: string;
+  createdDate: string;
+  videoLink: string;
+  user: User;
+  tags: Tag[];
+}
 
 export interface AuthInfo {
   accessToken: string;
@@ -10,6 +19,11 @@ export interface User {
   displayName: string;
   username: string;
   role: Role;
+}
+
+export interface Tag {
+  id: string;
+  name: string;
 }
 
 export enum Role {
