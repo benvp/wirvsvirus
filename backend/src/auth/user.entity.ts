@@ -34,7 +34,7 @@ export class User extends BaseEntity {
   @Column()
   profilePicture: string;
 
-  @Column()
+  @Column({ nullable: true })
   donationLink: string;
 
   @OneToMany(type => Training, x => x.host, { eager: false })

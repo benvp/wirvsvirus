@@ -8,6 +8,8 @@ import { User } from '../auth/user.entity';
 import { TagsService } from 'src/tags/tags.service';
 import { serialAsyncForEach } from 'src/utils';
 import { UpdateTrainingDto } from './dto/update-training.dto';
+import nanoid = require('nanoid');
+import slugify from 'slugify';
 
 @Injectable()
 export class TrainingsService {
@@ -36,10 +38,12 @@ export class TrainingsService {
     training.date = dto.date;
     training.name = dto.name;
     training.description = dto.description;
-    training.conferenceLink = dto.conferenceLink;
     training.youtubeVideo = dto.youtubeVideo;
     training.pictureLink = dto.pictureLink;
     training.professional = dto.professional;
+
+    // Generate Conference Link
+    training.conferenceLink = `https://meet.jit.si/${slugify(dto.name)}-${nanoid(10)}`
 
     training.host = user;
 

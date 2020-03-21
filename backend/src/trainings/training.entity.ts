@@ -34,7 +34,7 @@ export class Training extends BaseEntity {
   @Column()
   date: Date;
 
-  @Column({ nullable: true })
+  @Column()
   conferenceLink: string;
 
   @Column({ nullable: true })

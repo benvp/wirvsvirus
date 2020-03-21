@@ -52,7 +52,7 @@ export class Seeder {
             train.date = new Date(0)
             train.date.setUTCSeconds(seed.date)
             train.description = seed.description
-            train.conferenceLink = seed.conferenceLink
+            train.youtubeVideo = seed.youtubeVideo
             train.pictureLink = seed.pictureLink
             train.professional = seed.professional
 
