@@ -10,6 +10,7 @@ import { PagedResult } from '@@modules/api/types';
 import Link from 'next/link';
 import { ROUTES } from '@@modules/routes';
 import { useCurrentUser } from '@@/context/AuthContext';
+import { without } from 'lodash/fp';
 
 type TrainingsProps = {};
 
@@ -21,7 +22,11 @@ const Trainings: React.FC<TrainingsProps> = () => {
     fetch(apiRoutes.trainings).then(res => res.json()),
   );
 
-  const myTrainings = data?.items.filter(t => t.attendees.find(a => a.id === user?.id)) ?? [];
+  const myTrainings =
+    data?.items.filter(t => t.host.id === user?.id || t.attendees.find(a => a.id === user?.id)) ??
+    [];
+
+  const globalTrainings = without(myTrainings, data?.items ?? []);
 
   const ActionButtons = (
     <span className="ml-3 shadow-sm rounded-md">
@@ -66,7 +71,7 @@ const Trainings: React.FC<TrainingsProps> = () => {
       {status === 'loading' ? (
         <BulletList foregroundColor="#e2e8f0" backgroundColor="#edf2f7" width="50%" />
       ) : (
-        <TrainingsList trainings={data?.items ?? []} />
+        <TrainingsList trainings={globalTrainings} />
       )}
     </div>
   );

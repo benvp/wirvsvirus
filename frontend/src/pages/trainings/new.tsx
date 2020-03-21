@@ -38,7 +38,6 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
   });
 
   const filterSuggestions = (query: string) => {
-    console.log('tags', tags);
     const filtered = tags.filter(x => x.text.toLowerCase().startsWith(query.toLowerCase()));
 
     setSuggestions(filtered);
@@ -57,6 +56,7 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
     validateOnMount: true,
     validationSchema: Yup.object({
       name: Yup.string().required(),
+      description: Yup.string().required(),
       date: Yup.date().required(),
     }),
     onSubmit: values => {
@@ -110,7 +110,7 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
                     htmlFor="description"
                     className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px"
                   >
-                    Beschreibung
+                    Beschreibung <span className="text-red-700">*</span>
                   </label>
                   <div className="mt-1 sm:mt-0 sm:col-span-2">
                     <div className="max-w-lg flex rounded-md shadow-sm">
