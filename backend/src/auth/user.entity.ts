@@ -34,6 +34,9 @@ export class User extends BaseEntity {
   @Column()
   profilePicture: string;
 
+  @Column()
+  donationLink: string;
+
   @OneToMany(type => Training, x => x.host, { eager: false })
   hostTrainings: Training[];
 

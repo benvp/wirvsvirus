@@ -20,4 +20,8 @@ export class AuthCredentialsDto {
   @IsString()
   @IsOptional()
   profilePicture: string;
+
+  @IsString()
+  @IsOptional()
+  donationLink: string;
 }
