@@ -24,13 +24,15 @@ export const TrainingCard: React.FC<TrainingCardProps> = () => {
     fetch(url).then(res => res.json()),
   );
 
+  const isAttendee = training && !!training.attendees.find(x => x.id === user?.id);
+
   const [attend, { status: attendStatus }] = useMutation(() =>
-    fetch(apiRoutes.trainingAttend(trainingId), { method: 'POST' }).then(res => res.json()),
+    fetch(apiRoutes.trainingAttend(trainingId), {
+      method: isAttendee ? 'DELETE' : 'POST',
+    }).then(res => res.json()),
   );
 
   console.log('trai', training);
-
-  const isAttendee = training && !!training.attendees.find(x => x.id === user?.id);
 
   return (
     <div className="bg-white shadow overflow-hidden  sm:rounded-lg">
