@@ -30,4 +30,9 @@ export class TagsRepository extends Repository<Tag> {
     tag.text = dto.text;
     return tag.save();
   }
+
+  hasTags = async (): Promise<boolean> => {
+    const count = await this.count();
+    return count > 0;
+  };
 }

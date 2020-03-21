@@ -16,4 +16,8 @@ export class AuthCredentialsDto {
   @MaxLength(40)
   @IsOptional()
   displayName: string;
+
+  @IsString()
+  @IsOptional()
+  profilePicture: string;
 }

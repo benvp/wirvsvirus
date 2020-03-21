@@ -22,6 +22,7 @@ export class UsersRepository extends Repository<User> {
     user.password = await this.hashPassword(password, user.salt);
     user.role = role ? role : Role.TRIMMED;
     user.displayName = displayName;
+    user.profilePicture = 'placeholder_' + String(Math.floor(Math.random() * Math.floor(4)))
 
     try {
       await user.save();
@@ -102,7 +103,7 @@ export class UsersRepository extends Repository<User> {
   getAdminUser = async (): Promise<User> =>
     await this.findOne({ username: 'admin' });
     
-getUserByName = async (name: string): Promise<User> =>
+  getUserByName = async (name: string): Promise<User> =>
     await this.findOne({ username: name });
 
   getAllAdmins = async (): Promise<User[]> =>

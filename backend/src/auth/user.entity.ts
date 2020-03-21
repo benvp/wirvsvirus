@@ -31,6 +31,9 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   role: Role;
 
+  @Column()
+  profilePicture: string;
+
   @OneToMany(type => Training, x => x.host, { eager: false })
   hostTrainings: Training[];
 
