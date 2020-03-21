@@ -1,0 +1,21 @@
+{
+  "presets": ["next/babel"],
+    "plugins": [
+      ["macros"],
+      ["styled-components", { "ssr": true }],
+      [
+        "module-resolver",
+        {
+          "root": ["."],
+          "extensions": [".js", ".jsx", ".ts", ".tsx", ".json"],
+          "alias": {
+            "@@": "./src",
+            "@@pages": "./src/pages",
+            "@@components": "./src/components",
+            "@@modules": "./src/modules",
+            "@@styled-components": "./src/styled-components"
+          }
+        }
+      ]
+    ]
+}

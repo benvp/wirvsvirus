@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "baseUrl": ".",
     "target": "es5",
     "lib": [
       "dom",
@@ -17,18 +18,32 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noUnusedLocals": true,
-    "jsx": "preserve"
-  },
-  "paths": {
-    "@@pages/*": ["./src/pages/*"],
-    "@@components/*": ["./src/components/*"],
-    "@@modules/*": ["./src/modules/*"],
-    "@@styled-components": ["./src/styled-components"],
-    "@@styled-components/*": ["./src/styled-components/*"],
-    "@@/*": ["./*"]
+    "jsx": "preserve",
+    "paths": {
+      "@@pages/*": ["./src/pages/*"],
+      "@@components/*": ["./src/components/*"],
+      "@@modules/*": ["./src/modules/*"],
+      "@@styled-components": ["./src/styled-components"],
+      "@@styled-components/*": ["./src/styled-components/*"],
+      "@@/*": ["./*"]
+    },
   },
   "exclude": [
     "node_modules"
+  ],
+  "plugins": [
+    {
+      "name": "typescript-styled-plugin",
+      "lint": {
+        "validProperties": [
+          "shadow-color",
+          "shadow-opacity",
+          "shadow-offset",
+          "shadow-radius",
+          "elevation"
+        ]
+      }
+    }
   ],
   "include": [
     "next-env.d.ts",
