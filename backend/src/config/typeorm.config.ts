@@ -17,7 +17,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 export = {
-  type: dbConfig.type,
+  type: process.env.DB_TYPE || dbConfig.type,
   host: process.env.DB_HOSTNAME || dbConfig.host,
   port: process.env.DB_PORT || dbConfig.port,
   username: dbUser,
