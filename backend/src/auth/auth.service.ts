@@ -3,6 +3,7 @@ import {
   UnauthorizedException,
   NotFoundException,
   ConflictException,
+  ForbiddenException,
 } from '@nestjs/common';
 import { UsersRepository } from './users.repository';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -27,8 +28,11 @@ export class AuthService {
   updateUser = async (
     id: string,
     dto: AuthCredentialsDto,
+    user: User,
   ): Promise<BaseUser> => {
     const entity = await this.getUserById(id);
+    if (entity.id !== user.id)
+      throw new ForbiddenException('You cannot edit another user.');
     return await this.usersRepository.updateUser(entity, dto);
   };
 

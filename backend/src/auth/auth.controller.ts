@@ -32,9 +32,9 @@ export class AuthController {
     return this.authService.signIn(authCredentialsDto);
   }
 
-  @Post('/auth/tenants')
+  @Post('/auth/register')
   @UseGuards(ApiAuthGuard, RolesGuard)
-  createTenant(
+  createUser(
     @Body(ValidationPipe) authCredentialsDto: AuthCredentialsDto,
   ): Promise<BaseUser> {
     if (authCredentialsDto.password == null)
@@ -43,21 +43,26 @@ export class AuthController {
     return this.authService.createUser(authCredentialsDto);
   }
 
-  @Delete('/auth/tenants/:id')
+  @Delete('/auth/user/:id')
   @UseGuards(ApiAuthGuard, RolesGuard)
   @Roles(Role.ADMIN)
   deleteUser(@Param('id') id: string): Promise<void> {
     return this.authService.deleteUser(id);
   }
 
-  @Patch('/auth/tenants/:id')
+  @Patch('/auth/user/:id')
   @UseGuards(ApiAuthGuard, RolesGuard)
-  @Roles(Role.ADMIN)
+  @Roles(
+    Role.ADMIN,
+    Role.TRIMMED,
+    Role.TRIMMER,
+  )
   updateUser(
     @Param('id') id: string,
+    @GetUser() user: User,
     @Body(ValidationPipe) dto: AuthCredentialsDto,
   ): Promise<BaseUser> {
-    return this.authService.updateUser(id, dto);
+    return this.authService.updateUser(id, dto, user);
   }
 
   @Get('/auth/isSignedIn')
