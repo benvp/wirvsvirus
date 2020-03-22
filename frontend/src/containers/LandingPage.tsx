@@ -397,7 +397,7 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
                 </a>{' '}
                 -{' '}
                 <Link href={ROUTES.IMPRINT}>
-                  <a className="hover:text-gray-900">Impressum</a>
+                  <a className="hover:text-gray-900">Impressum / Datenschutz</a>
                 </Link>
               </p>
             </div>
