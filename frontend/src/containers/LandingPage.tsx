@@ -40,15 +40,8 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
                   </div>
                 </div>
                 <div className="hidden md:block md:ml-10 md:pr-4">
-                  <a
-                    href="#"
-                    className="ml-8 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out"
-                  >
-                    Das Projekt
-                  </a>
-
                   <Link href={ROUTES.TRAININGS}>
-                    <a className="ml-8 font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">
+                    <a className="font-medium text-gray-500 hover:text-gray-900 focus:outline-none focus:text-gray-900 transition duration-150 ease-in-out">
                       Trainings
                     </a>
                   </Link>
@@ -150,14 +143,14 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
                       </a>
                     </Link>
                   </div>
-                  <div className="mt-3 sm:mt-0 sm:ml-3">
+                  {/* <div className="mt-3 sm:mt-0 sm:ml-3">
                     <a
                       href="#"
                       className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-medium rounded-md text-indigo-700 bg-indigo-100 hover:text-indigo-600 hover:bg-indigo-50 focus:outline-none focus:shadow-outline focus:border-indigo-300 transition duration-150 ease-in-out md:py-4 md:text-lg md:px-10"
                     >
                       Weitere Infos
                     </a>
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

@@ -56,7 +56,7 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
               </div>
               <div className="hidden sm:ml-6 sm:flex">
                 <NavLink href={ROUTES.ROOT} active={route === ROUTES.ROOT}>
-                  Das Projekt
+                  Startseite
                 </NavLink>
 
                 <NavLink
