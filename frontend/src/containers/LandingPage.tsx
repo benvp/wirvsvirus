@@ -309,23 +309,60 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
             Erstellt von
           </p>
           <div className="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8">
-            <div className="col-span-1 flex justify-center py-8 px-8 bg-gray-50">
-              <img className="max-h-12" src="/img/logos/transistor-logo.svg" alt="Workcation" />
+            <div className="col-span-1 flex justify-center py-4 px-4 bg-gray-50">
+              <div className="flex flex-col justify-center align-middle">
+                <img
+                  className="h-16 w-16 self-center object-center object-cover rounded-full"
+                  src="/img/landing/team/vanessa.jpg"
+                  alt="Vanessa von Polheim"
+                />
+                <p className="mt-2 text-gray-600 self-center">Vanessa von Polheim</p>
+              </div>
             </div>
             <div className="col-span-1 flex justify-center py-8 px-8 bg-gray-50">
-              <img className="max-h-12" src="/img/logos/mirage-logo.svg" alt="Mirage" />
+              <div className="flex flex-col justify-center align-middle">
+                <img
+                  className="h-16 w-16 self-center object-center object-cover rounded-full"
+                  src="/img/landing/team/fred.jpg"
+                  alt="Frédéric Bolvin"
+                />
+                <p className="mt-2 text-gray-600 self-center">Frédéric Bolvin</p>
+              </div>
             </div>
             <div className="col-span-1 flex justify-center py-8 px-8 bg-gray-50">
-              <img className="max-h-12" src="/img/logos/tuple-logo.svg" alt="Tuple" />
+              <div className="flex flex-col justify-center align-middle">
+                <img
+                  className="h-16 w-16 self-center object-center object-cover rounded-full"
+                  src="/img/landing/team/maro.jpg"
+                  alt="Maro Rudolf"
+                />
+                <p className="mt-2 text-gray-600 self-center">Maro Rudolf</p>
+              </div>
             </div>
             <div className="col-span-1 flex justify-center py-8 px-8 bg-gray-50">
-              <img className="max-h-12" src="/img/logos/laravel-logo.svg" alt="Laravel" />
+              <div className="flex flex-col justify-center align-middle">
+                <img
+                  className="h-16 w-16 self-center object-center object-cover rounded-full"
+                  src="/img/landing/team/ben.jpg"
+                  alt="Benjamin von Polheim"
+                />
+                <p className="mt-2 text-gray-600 self-center">Benjamin von Polheim</p>
+              </div>
             </div>
             <div className="col-span-1 flex justify-center py-8 px-8 bg-gray-50">
-              <img className="max-h-12" src="/img/logos/statickit-logo.svg" alt="StaticKit" />
+              <div className="flex flex-col justify-center align-middle text-5xl text-red-600">
+                ❤️
+              </div>
             </div>
             <div className="col-span-1 flex justify-center py-8 px-8 bg-gray-50">
-              <img className="max-h-12" src="/img/logos/statamic-logo.svg" alt="Statamic" />
+              <div className="flex flex-col justify-center align-middle">
+                <img
+                  className="h-16 w-16 self-center object-center object-cover rounded-full"
+                  src="/img/landing/team/maro.jpg"
+                  alt="Matthäus Dubiel"
+                />
+                <p className="mt-2 text-gray-600 self-center">Matthäus Dubiel</p>
+              </div>
             </div>
           </div>
         </div>
