@@ -2,7 +2,7 @@ import { useAuthInfo } from '@@/context/AuthContext';
 import { useRouter } from 'next/router';
 import { ROUTES } from '@@modules/routes';
 
-export const API_BASE_URL = 'http://localhost:3001';
+export const API_BASE_URL = 'https://trimmdich.f-bit.software';
 
 const apiRoute = (r: string) => `${API_BASE_URL}${r}`;
 
