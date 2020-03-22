@@ -7,5 +7,5 @@ db:
   database: 'trimmdich'
 
 jwt:
-  secret: 'Mpo+yZoWbU;mwK2zpif?B+HP3'
+  secret: 'topsecret'
   expiresIn: 36000
