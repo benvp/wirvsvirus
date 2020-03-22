@@ -207,7 +207,7 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white p-2">
-                      <img src="/img/landing/benefit-2-w.svg" />
+                      <img src="/img/landing/benefit-4-w.svg" />
                     </div>
                   </div>
                   <div className="ml-4">
@@ -241,7 +241,7 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
                 <div className="flex">
                   <div className="flex-shrink-0">
                     <div className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white p-2">
-                      <img src="/img/landing/benefit-4-w.svg" />
+                      <img src="/img/landing/benefit-2-w.svg" />
                     </div>
                   </div>
                   <div className="ml-4">
