@@ -7,7 +7,7 @@ import {
 
 @Entity()
 export class Picture extends BaseEntity {
-  @PrimaryColumn()
+  @PrimaryColumn({ length: 36 })
   id: string;
 
   @Column()
