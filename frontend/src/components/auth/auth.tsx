@@ -11,7 +11,6 @@ export const requireAuth = <P extends object = {}>(WrappedComponent: React.Compo
     useEffect(() => {
       if (!auth?.accessToken) {
         setAuth(undefined);
-        router.replace(ROUTES.LOGIN);
       }
     }, [auth]);
 

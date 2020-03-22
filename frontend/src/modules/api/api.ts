@@ -12,6 +12,8 @@ export const apiRoutes = {
   trainings: apiRoute('/trainings'),
   training: (id: number) => apiRoute(`/trainings/${id}`),
   trainingAttend: (id: number) => apiRoute(`/trainings/${id}/attend`),
+  profilePictureUpload: apiRoute(`/users/picture`),
+  profile: (id: string) => apiRoute(`/auth/user/${id}`),
 };
 
 export const useFetch = () => {

@@ -10,13 +10,13 @@ type SupportCardProps = {
 export const SupportCard: React.FC<SupportCardProps> = ({ training }) => {
   return (
     <div className="bg-white shadow overflow-hidden sm:rounded-lg">
-      <div className="bg-white px-4 py-5 border-b border-gray-200 sm:px-6">
+      <div className="bg-white px-4 py-5 sm:px-6">
         <div className="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">
           <div className="ml-4 mt-4">
             <div className="flex items-center">
               <div className="flex-shrink-0">
                 <img
-                  className="h-12 w-12 rounded-full"
+                  className="h-12 w-12 rounded-full object-center object-cover"
                   src={getProfilePicture(training.host)}
                   alt=""
                 />
@@ -25,6 +25,26 @@ export const SupportCard: React.FC<SupportCardProps> = ({ training }) => {
                 <h3 className="text-lg leading-6 font-medium text-gray-900">
                   {training.host.displayName}
                 </h3>
+                {/* <p className="text-sm leading-5 text-gray-500">
+                <a href="#">Unterstütze mich.</a>
+              </p> */}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="bg-white px-4 pb-5 pt-0 border-b border-gray-200 sm:px-6">
+        <div className="-ml-4 -mt-4 flex justify-between items-center flex-wrap sm:flex-no-wrap">
+          <div className="ml-4 mt-4">
+            <div className="flex items-center">
+              <div>
+                <label
+                  htmlFor="about"
+                  className="block mb-2 text-xs font-medium leading-5 text-gray-700 sm:mt-px tracking-wide uppercase"
+                >
+                  Über {training.host.displayName}
+                </label>
+                <p className="text-sm leading-7 text-gray-500">{training.host.about}</p>
                 {/* <p className="text-sm leading-5 text-gray-500">
                 <a href="#">Unterstütze mich.</a>
               </p> */}

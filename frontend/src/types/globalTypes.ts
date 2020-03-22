@@ -24,7 +24,14 @@ export interface User {
   username: string;
   role: Role;
   donationLink: string;
-  profilePicture: string;
+  profilePicturePlaceholder: string;
+  profilePicture: UserProfilePicture;
+  about: string;
+}
+
+export interface UserProfilePicture {
+  id: string;
+  filename: string;
 }
 
 export interface Tag {
