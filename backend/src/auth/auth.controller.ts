@@ -143,12 +143,6 @@ export class AuthController {
   }
 
   @Get('/users/:userId/picture')
-  @UseGuards(ApiAuthGuard, RolesGuard)
-  @Roles(
-    Role.ADMIN,
-    Role.TRIMMED,
-    Role.TRIMMER,
-  )
   async serveProfilePicture(@Param('userId') userId: string, @Res() res): Promise<any> {
     const user = await this.authService.getUserById(userId);
     if (!user.profilePicture)
