@@ -74,7 +74,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                 htmlFor="username"
                 className="block text-sm font-medium leading-5 text-gray-700"
               >
-                Benutzername
+                Benutzername (min. 3 Zeichen)
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
@@ -93,7 +93,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                 htmlFor="displayName"
                 className="block text-sm font-medium leading-5 text-gray-700"
               >
-                Nickname
+                Nickname (min. 3 Zeichen)
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
@@ -112,7 +112,7 @@ const SignUp: React.FC<SignUpProps> = () => {
                 htmlFor="password"
                 className="block text-sm font-medium leading-5 text-gray-700"
               >
-                Passwort
+                Passwort (min. 5 Zeichen)
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
