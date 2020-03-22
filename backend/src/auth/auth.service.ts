@@ -85,6 +85,8 @@ export class AuthService {
         username: user.username,
         id: user.id,
         role: user.role,
+        donationLink: user.donationLink,
+        profilePicture: user.profilePicture,
       },
     };
   };

@@ -77,6 +77,8 @@ export class AuthController {
         username: u.username,
         id: u.id,
         role: u.role,
+        donationLink: u.donationLink,
+        profilePicture: u.profilePicture,
       };
     }
   }

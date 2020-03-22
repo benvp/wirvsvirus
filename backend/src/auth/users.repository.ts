@@ -31,6 +31,8 @@ export class UsersRepository extends Repository<User> {
         username: user.username,
         id: user.id,
         role: user.role,
+        donationLink: user.donationLink,
+        profilePicture: user.profilePicture,
       };
     } catch (error) {
       logger.error(error);
@@ -61,6 +63,8 @@ export class UsersRepository extends Repository<User> {
         username: user.username,
         id: user.id,
         role: user.role,
+        donationLink: user.donationLink,
+        profilePicture: user.profilePicture,
       };
     } catch (error) {
       logger.error(error);
@@ -76,7 +80,7 @@ export class UsersRepository extends Repository<User> {
   ): Promise<BaseUser> => {
     const { username, password } = authCredentialsDto;
     const user = await this.createQueryBuilder('user')
-    .select(['user.id', 'user.username', 'user.displayName', 'user.role'])
+    .select(['user.id', 'user.username', 'user.displayName', 'user.role', 'user.donationLink', 'user.profilePicture'])
     .addSelect('user.password')
     .addSelect('user.salt')
     .where({ username })
@@ -88,6 +92,8 @@ export class UsersRepository extends Repository<User> {
         username: user.username,
         id: user.id,
         role: user.role,
+        donationLink: user.donationLink,
+        profilePicture: user.profilePicture,
       };
     else return null;
   };
