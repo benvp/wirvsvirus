@@ -3,6 +3,7 @@ import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { ROUTES, PUBLIC_ROUTES } from '../modules/routes';
 import classnames from 'classnames';
+import { useCurrentUser, useAuthInfo } from '@@/context/AuthContext';
 
 type NavLinkProps = {
   className?: string;
@@ -26,7 +27,11 @@ const NavLink: React.FC<NavLinkProps> = ({ className, href, active, children }) 
 type ShellProps = {};
 
 export const Shell: React.FC<ShellProps> = ({ children }) => {
-  const { route } = useRouter();
+  const user = useCurrentUser();
+  const { logout } = useAuthInfo();
+  const router = useRouter();
+
+  const { route } = router;
 
   const isPublic = PUBLIC_ROUTES.includes(route);
 
@@ -62,19 +67,35 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
                 </NavLink>
               </div>
             </div>
-            <div className="hidden sm:ml-6 sm:flex sm:items-center">
-              <button className="p-1 border-2 border-transparent text-gray-400 rounded-full hover:text-gray-500 focus:outline-none focus:text-gray-500 focus:bg-gray-100 transition duration-150 ease-in-out">
-                <svg className="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"
-                  />
-                </svg>
-              </button>
-              <div className="ml-3 relative">
-                <div>
+            <div className="hidden sm:ml-6 sm:flex">
+              <div className="hidden sm:ml-6 sm:flex">
+                {user ? (
+                  <React.Fragment>
+                    <button
+                      className="ml-6 inline-flex items-center px-1 pt-1 border-b-2 border-transparent text-sm font-medium leading-5 text-gray-500 hover:text-gray-700 focus:outline-none focus:text-gray-700 focus:border-gray-300 transition duration-150 ease-in-out"
+                      type="button"
+                      onClick={() => {
+                        logout();
+                        router.replace(ROUTES.LOGIN);
+                      }}
+                    >
+                      Abmelden
+                    </button>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <NavLink href={ROUTES.SIGN_UP} active={route === ROUTES.SIGN_UP}>
+                      Registrieren
+                    </NavLink>
+                    <NavLink className="ml-6" href={ROUTES.LOGIN} active={route === ROUTES.LOGIN}>
+                      Login
+                    </NavLink>
+                  </React.Fragment>
+                )}
+              </div>
+
+              {user && (
+                <div className="ml-6 relative sm:center sm:self-center">
                   <button className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
                     <img
                       className="h-8 w-8 rounded-full"
@@ -83,32 +104,7 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
                     />
                   </button>
                 </div>
-                <div
-                  x-show="open"
-                  className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg"
-                >
-                  <div className="py-1 rounded-md bg-white shadow-xs hidden">
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                    >
-                      Your Profile
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                    >
-                      Settings
-                    </a>
-                    <a
-                      href="#"
-                      className="block px-4 py-2 text-sm leading-5 text-gray-700 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 transition duration-150 ease-in-out"
-                    >
-                      Sign out
-                    </a>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
             <div className="-mr-2 flex items-center sm:hidden">
               <button className="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:bg-gray-100 focus:text-gray-500 transition duration-150 ease-in-out">

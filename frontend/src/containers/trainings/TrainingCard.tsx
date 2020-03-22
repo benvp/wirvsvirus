@@ -24,10 +24,8 @@ export const TrainingCard: React.FC<TrainingCardProps> = () => {
   const trainingId = parseInt((router.query as any).id, 10);
   const url = apiRoutes.training(trainingId);
 
-  const { data: training, status, refetch } = useQuery<Training, any>(
-    'training',
-    () => fetch(url).then(res => res.json()),
-    { initialData: { attendees: [], host: {} } as any },
+  const { data: training, status, refetch } = useQuery<Training, any>('training', () =>
+    fetch(url).then(res => res.json()),
   );
 
   const isAttendee = training && !!training.attendees.find(x => x.id === user?.id);

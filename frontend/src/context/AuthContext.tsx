@@ -1,26 +1,42 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect, useCallback } from 'react';
 import { AuthInfo, Role } from '../types/globalTypes';
+
+const AUTH_INFO_STORAGE_KEY = 'trimmdichzuhause-auth-info';
+
+const restoreSession = (): AuthInfo | undefined => {
+  const info = window.localStorage.getItem(AUTH_INFO_STORAGE_KEY);
+
+  return info ? JSON.parse(info) : undefined;
+};
 
 export type AuthContextType = {
   setAuth: (info: AuthInfo | undefined) => void;
+  logout: () => void;
   auth?: AuthInfo;
 };
 
 const AuthContext = React.createContext<AuthContextType>({} as any);
 
 export const AuthProvider: React.FC = ({ children }) => {
-  const [auth, setAuth] = useState<AuthInfo | undefined>({
-    accessToken:
-      'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNTg0ODI0MjgxLCJleHAiOjE1ODQ4NjAyODF9.UIBopKs9EdOQhkP7y2kS2txO_mM3oUmxvfg1ppG3qow',
-    user: {
-      displayName: 'admin',
-      username: 'admin',
-      id: 'f22c9f8f-cb83-4ab1-a950-48a7987c4847',
-      role: 'admin' as Role,
-    },
-  });
+  const [auth, setAuth] = useState<AuthInfo | undefined>();
 
-  return <AuthContext.Provider value={{ auth, setAuth }}>{children}</AuthContext.Provider>;
+  useEffect(() => {
+    if (auth) {
+      window.localStorage.setItem(AUTH_INFO_STORAGE_KEY, JSON.stringify(auth));
+    }
+  }, [auth]);
+
+  useEffect(() => {
+    const info = restoreSession();
+    setAuth(info);
+  }, []);
+
+  const logout = useCallback(() => {
+    window.localStorage.removeItem(AUTH_INFO_STORAGE_KEY);
+    setAuth(undefined);
+  }, [AUTH_INFO_STORAGE_KEY]);
+
+  return <AuthContext.Provider value={{ auth, setAuth, logout }}>{children}</AuthContext.Provider>;
 };
 
 export const useAuthInfo = () => useContext(AuthContext);

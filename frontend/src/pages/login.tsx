@@ -104,7 +104,7 @@ const Login: React.FC<LoginProps> = () => {
               <div className="text-sm leading-5">
                 Du hast noch keinen Account?
                 <Link href={ROUTES.SIGN_UP}>
-                  <a className="font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
+                  <a className="ml-1 font-medium text-indigo-600 hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150">
                     Jetzt Mitmachen
                   </a>
                 </Link>

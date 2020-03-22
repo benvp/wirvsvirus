@@ -20,10 +20,8 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
 
   const [suggestions, setSuggestions] = useState<Tag[]>([]);
 
-  const { data: tags = [] } = useQuery<Tag[], any>(
-    'tags',
-    () => fetch(apiRoutes.tags).then(res => res.json()),
-    { initialData: [] },
+  const { data: tags = [] } = useQuery<Tag[], any>('tags', () =>
+    fetch(apiRoutes.tags).then(res => res.json()),
   );
 
   const [createTraining] = useMutation((values: any) =>
