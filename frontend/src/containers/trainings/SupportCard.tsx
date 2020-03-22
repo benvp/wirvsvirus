@@ -55,8 +55,17 @@ export const SupportCard: React.FC<SupportCardProps> = ({ training }) => {
         <p className="uppercase tracking-wider text-xs text-gray-500 font-semibold">
           Empfohlener Spende pro Training
         </p>
-        <p className="mt-1 uppercase tracking-wider text-2xl text-gray-000 font-semibold">€ 10</p>
-        <Button className="mt-4">Unterstützer werden</Button>
+        <p className="mt-1 uppercase tracking-wider text-2xl text-gray-000 font-semibold">
+          € {training.recommendedDonation?.toFixed(0)}
+        </p>
+
+        {training.host.donationLink && (
+          <Button className="mt-4">
+            <a href={training.host.donationLink} target="_blank">
+              Unterstützer werden
+            </a>
+          </Button>
+        )}
       </div>
     </div>
   );

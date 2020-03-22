@@ -10,6 +10,7 @@ export interface Training {
   professional: boolean;
   attendees: User[];
   conferenceLink: string;
+  recommendedDonation: number;
 }
 
 export interface AuthInfo {

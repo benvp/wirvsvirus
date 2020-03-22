@@ -41,16 +41,18 @@ const TrainingPage: React.FC<TrainingPageProps> = () => {
           </div>
         ) : (
           <React.Fragment>
-            <div className="col-span-8">
+            <div className={training.professional ? 'col-span-8' : 'col-span-12'}>
               <TrainingCard
                 training={training}
                 onAttend={() => attend().then(refetch)}
                 isAttendLoading={attendStatus === 'loading'}
               />
             </div>
-            <div className="col-span-4">
-              <SupportCard training={training} />
-            </div>
+            {training.professional && (
+              <div className="col-span-4">
+                <SupportCard training={training} />
+              </div>
+            )}
           </React.Fragment>
         )}
       </div>
