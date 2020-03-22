@@ -10,6 +10,7 @@ export interface Training {
   professional: boolean;
   attendees: User[];
   conferenceLink: string;
+  recommendedDonation: number;
 }
 
 export interface AuthInfo {
@@ -22,6 +23,8 @@ export interface User {
   displayName: string;
   username: string;
   role: Role;
+  donationLink: string;
+  profilePicture: string;
 }
 
 export interface Tag {

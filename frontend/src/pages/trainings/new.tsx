@@ -50,6 +50,7 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
       date: new Date(),
       tags: [] as Tag[],
       professional: false,
+      recommendedDonation: '0',
     },
     validateOnMount: true,
     validationSchema: Yup.object({
@@ -64,6 +65,7 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
         date: values.date,
         professional: values.professional,
         tagIDs: values.tags.map(x => x.id),
+        recommendedDonation: values.recommendedDonation,
       };
 
       return createTraining(dto).then(() => router.push(ROUTES.TRAININGS));
@@ -213,6 +215,45 @@ export const NewTrainingPage: React.FC<NewTrainingPageProps> = () => {
                               <p className="text-gray-500">
                                 Du bist professioneller Trainer und gibst ein geführtes Training.
                               </p>
+                            </div>
+                          </div>
+                          <div className="mt-8 md:pl-7">
+                            <div>
+                              <label
+                                htmlFor="name"
+                                className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px"
+                              >
+                                Empfohlene Spende
+                              </label>
+                              <p className="mt-2 max-w-2xl text-sm leading-5 text-gray-500">
+                                Hier kannst du eine empfohlene Spende für diese Trainingseinheit
+                                eintragen.
+                              </p>
+                              <span className="text-xs text-gray-400">
+                                (nur für professionell geführte Trainings)
+                              </span>
+                            </div>
+                            <div className="sm:mt-2 sm:col-span-2">
+                              <div className="flex">
+                                <div className="max-w-xs rounded-md shadow-sm">
+                                  <input
+                                    disabled={!formik.values.professional}
+                                    id="recommendedDonation"
+                                    type="number"
+                                    min="0"
+                                    max="9999"
+                                    onChange={formik.handleChange}
+                                    value={formik.values.recommendedDonation}
+                                    required
+                                    className={
+                                      formik.values.professional
+                                        ? 'form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5'
+                                        : 'form-input block w-full transition duration-150 ease-in-out sm:text-sm sm:leading-5 text-gray-300 cursor-not-allowed'
+                                    }
+                                  />
+                                </div>
+                                <p className="text-xl text-gray-700 ml-2 self-center">€</p>
+                              </div>
                             </div>
                           </div>
                         </div>

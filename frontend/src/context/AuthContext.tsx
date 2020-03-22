@@ -36,6 +36,8 @@ export const AuthProvider: React.FC = ({ children }) => {
     setAuth(undefined);
   }, [AUTH_INFO_STORAGE_KEY]);
 
+  console.log('auth', auth);
+
   return <AuthContext.Provider value={{ auth, setAuth, logout }}>{children}</AuthContext.Provider>;
 };
 

@@ -1,49 +1,43 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import { Training } from '@@/types/globalTypes';
 import { useFetch, apiRoutes } from '@@modules/api/api';
-import { useQuery, useMutation } from 'react-query';
+import { useMutation } from 'react-query';
 import { useRouter } from 'next/router';
 import { List as Loading } from 'react-content-loader';
 import { Tag } from '@@components/core/Tag';
 import { format } from 'date-fns';
 import { Button } from '@@components/Button/Button';
-import trainings from '@@pages/trainings';
 import { useCurrentUser } from '@@/context/AuthContext';
 import CopyToClipboard from 'react-copy-to-clipboard';
-import classnames from 'classnames';
 import { ROUTES } from '@@modules/routes';
 
-type TrainingCardProps = {};
+type TrainingCardProps = {
+  training: Training;
+  onAttend?: () => Promise<any>;
+  isAttendLoading?: boolean;
+};
 
-export const TrainingCard: React.FC<TrainingCardProps> = () => {
+export const TrainingCard: React.FC<TrainingCardProps> = ({
+  training,
+  onAttend = () => {},
+  isAttendLoading = false,
+}) => {
   const router = useRouter();
   const fetch = useFetch();
   const user = useCurrentUser();
 
   const [copied, setCopied] = useState(false);
-  const trainingId = parseInt((router.query as any).id, 10);
-  const url = apiRoutes.training(trainingId);
-
-  const { data: training, status, refetch } = useQuery<Training, any>('training', () =>
-    fetch(url).then(res => res.json()),
-  );
 
   const isAttendee = training && !!training.attendees.find(x => x.id === user?.id);
   const isOwner = training && training.host.id === user?.id;
 
-  const [attend, { status: attendStatus }] = useMutation(() =>
-    fetch(apiRoutes.trainingAttend(trainingId), {
-      method: isAttendee ? 'DELETE' : 'POST',
-    }).then(res => res.json()),
-  );
-
   const [deleteTraining, { status: deleteStatus }] = useMutation(() =>
-    fetch(apiRoutes.training(trainingId), { method: 'DELETE' }),
+    fetch(apiRoutes.training(training.id), { method: 'DELETE' }),
   );
 
   return (
     <div>
-      <div className="bg-white shadow overflow-hidden  sm:rounded-lg">
+      <div className="bg-white shadow overflow-hidden sm:rounded-lg">
         {status === 'loading' || !training ? (
           <div className="p-8">
             <Loading width="50%" />
@@ -67,11 +61,7 @@ export const TrainingCard: React.FC<TrainingCardProps> = () => {
                 <p className="self-center text-gray-600 text-sm">
                   <strong>{training.attendees.length}</strong> Teilnehmer
                 </p>
-                <Button
-                  className="ml-3"
-                  onClick={() => attend().then(refetch)}
-                  disabled={attendStatus === 'loading'}
-                >
+                <Button className="ml-3" onClick={() => onAttend()} disabled={isAttendLoading}>
                   {isAttendee ? (
                     <svg
                       className="fill-current w-6 h-6 mr-2"
