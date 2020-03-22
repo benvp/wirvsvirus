@@ -112,3 +112,6 @@ dist
 
 # File Uploadas
 uploads
+
+# zeit now
+.now
