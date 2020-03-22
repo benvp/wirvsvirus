@@ -76,6 +76,9 @@ const SignUp: React.FC<SignUpProps> = () => {
               >
                 Benutzername (min. 3 Zeichen)
               </label>
+              <p className="mt-1 text-sm text-gray-500">
+                Diesen Namen verwendest du für deinen Login.
+              </p>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
                   id="username"
@@ -95,6 +98,9 @@ const SignUp: React.FC<SignUpProps> = () => {
               >
                 Nickname (min. 3 Zeichen)
               </label>
+              <p className="mt-1 text-sm text-gray-500">
+                Dieser Name wird anderen Nutzern angezeigt.
+              </p>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
                   id="displayName"
