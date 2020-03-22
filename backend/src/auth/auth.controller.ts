@@ -86,11 +86,14 @@ export class AuthController {
   @Roles(Role.ADMIN)
   async getUsers(): Promise<BaseUser[]> {
     const users = await this.authService.getAllUsers();
+    
     return users.map(u => ({
       displayName: u.displayName,
       username: u.username,
       id: u.id,
       role: u.role,
+      donationLink: u.donationLink,
+      profilePicture: u.profilePicture,
     }));
   }
 }

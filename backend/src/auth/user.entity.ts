@@ -1,12 +1,6 @@
 import * as bcrypt from 'bcrypt';
 
-import {
-  BaseEntity,
-  Column,
-  Entity,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 import { Role } from './roles.enum';
 import { Training } from '../trainings/training.entity';
@@ -37,7 +31,11 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   donationLink: string;
 
-  @OneToMany(type => Training, x => x.host, { eager: false })
+  @OneToMany(
+    type => Training,
+    x => x.host,
+    { eager: false },
+  )
   hostTrainings: Training[];
 
   async validatePassword(password: string): Promise<boolean> {
@@ -51,4 +49,6 @@ export interface BaseUser {
   id: string;
   role: Role;
   displayName: string;
+  donationLink: string;
+  profilePicture: string;
 }
