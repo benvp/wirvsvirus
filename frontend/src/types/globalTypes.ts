@@ -22,6 +22,8 @@ export interface User {
   displayName: string;
   username: string;
   role: Role;
+  donationLink: string;
+  profilePicture: string;
 }
 
 export interface Tag {
