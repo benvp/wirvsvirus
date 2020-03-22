@@ -28,4 +28,8 @@ export class CreateTrainingDto {
 
   @IsNotEmpty()
   professional: boolean;
+
+  @IsNotEmpty()
+  @IsOptional()
+  recommendedDonation: number;
 }

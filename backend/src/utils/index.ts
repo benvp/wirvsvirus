@@ -5,3 +5,12 @@
  */
 export const serialAsyncForEach = (arr: any[], asyncMethod: (item: any) => Promise<any>) =>
   arr.reduce((accPromise, item) => accPromise.then(() => asyncMethod(item)), Promise.resolve());
+
+export class ColumnNumericTransformer {
+  to(data: number): number {
+    return data;
+  }
+  from(data: string): number {
+    return parseFloat(data);
+  }
+}

@@ -7,13 +7,13 @@ import { AuthService } from '../auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
 import { Seeder } from './seeder';
+import { TagsRepository } from '../tags/tags.repository';
+import { TagsService } from '../tags/tags.service';
+import { TrainingsRepository } from '../trainings/trainings.repository';
+import { TrainingsService } from '../trainings/trainings.service';
 import { UsersRepository } from '../auth/users.repository';
 
 import typeOrmConfig = require('../config/typeorm.config');
-import { TrainingsService } from 'src/trainings/trainings.service';
-import { TrainingsRepository } from 'src/trainings/trainings.repository';
-import { TagsService } from 'src/tags/tags.service';
-import { TagsRepository } from 'src/tags/tags.repository';
 
 const jwtConfig = config.get('jwt');
 

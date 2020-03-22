@@ -8,6 +8,7 @@ import {
   PrimaryGeneratedColumn,
 } from 'typeorm';
 
+import { ColumnNumericTransformer } from '../utils';
 import { Tag } from '../tags/tag.entity';
 import { User } from '../auth/user.entity';
 
@@ -46,6 +47,9 @@ export class Training extends BaseEntity {
 
   @Column()
   professional: boolean;
+
+  @Column({ nullable: true, type: 'decimal', transformer: new ColumnNumericTransformer(), })
+  recommendedDonation: number
 
   @ManyToOne(
     type => User,

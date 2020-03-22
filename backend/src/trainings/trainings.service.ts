@@ -5,8 +5,8 @@ import { CreateTrainingDto } from './dto/create-training.dto';
 import { Training } from './training.entity';
 import { SearchDto } from '../dto/search.dto';
 import { User } from '../auth/user.entity';
-import { TagsService } from 'src/tags/tags.service';
-import { serialAsyncForEach } from 'src/utils';
+import { TagsService } from '../tags/tags.service';
+import { serialAsyncForEach } from '../utils';
 import { UpdateTrainingDto } from './dto/update-training.dto';
 import nanoid = require('nanoid');
 import slugify from 'slugify';
@@ -41,6 +41,7 @@ export class TrainingsService {
     training.youtubeVideo = dto.youtubeVideo;
     training.pictureLink = dto.pictureLink;
     training.professional = dto.professional;
+    training.recommendedDonation = dto.recommendedDonation;
     training.attendees = [user];
 
     // Generate Conference Link
@@ -55,7 +56,6 @@ export class TrainingsService {
         training.tags.push(await this.tagService.getById(id));
       });
     }
-
     return training.save();
   }
 
@@ -72,6 +72,7 @@ export class TrainingsService {
     if (dto.name) training.name = dto.name;
     if (dto.pictureLink) training.pictureLink = dto.pictureLink;
     if (dto.professional) training.professional = dto.professional;
+    if (dto.recommendedDonation) training.recommendedDonation = dto.recommendedDonation;
     if (dto.youtubeVideo) training.youtubeVideo = dto.youtubeVideo;
     if (dto.tagIDs) {
       training.tags = [];

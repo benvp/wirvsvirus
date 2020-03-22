@@ -32,4 +32,8 @@ export class UpdateTrainingDto {
   @IsNotEmpty()
   @IsOptional()
   professional: boolean;
+
+  @IsNotEmpty()
+  @IsOptional()
+  recommendedDonation: number;
 }

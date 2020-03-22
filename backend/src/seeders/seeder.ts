@@ -1,15 +1,16 @@
+import * as seedTrainings from './trainings.json';
+import * as tags from './tags.json';
+
 import { Injectable, Logger } from '@nestjs/common';
 
 import { AuthCredentialsDto } from '../auth/dto/auth-credentials.dto';
+import { CreateTagDto } from '../tags/dto/create-tag.dto';
 import { CreateTrainingDto } from '../trainings/dto/create-training.dto';
 import { Role } from '../auth/roles.enum';
-import { UsersRepository } from '../auth/users.repository';
+import { TagsRepository } from '../tags/tags.repository';
+import { TrainingsRepository } from '../trainings/trainings.repository';
 import { TrainingsService } from '../trainings/trainings.service';
-import * as seedTrainings from './trainings.json';
-import * as tags from './tags.json';
-import { TrainingsRepository } from 'src/trainings/trainings.repository';
-import { TagsRepository } from 'src/tags/tags.repository';
-import { CreateTagDto } from 'src/tags/dto/create-tag.dto';
+import { UsersRepository } from '../auth/users.repository';
 
 @Injectable()
 export class Seeder {
