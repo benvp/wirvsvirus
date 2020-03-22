@@ -32,6 +32,7 @@ export class UsersRepository extends Repository<User> {
         id: user.id,
         role: user.role,
         donationLink: user.donationLink,
+        about: user.about,
         profilePicture: user.profilePicture,
         profilePicturePlaceholder: user.profilePicturePlaceholder,
       };
@@ -65,6 +66,7 @@ export class UsersRepository extends Repository<User> {
         id: user.id,
         role: user.role,
         donationLink: user.donationLink,
+        about: user.about,
         profilePicture: user.profilePicture,
         profilePicturePlaceholder: user.profilePicturePlaceholder,
       };
@@ -82,7 +84,7 @@ export class UsersRepository extends Repository<User> {
   ): Promise<BaseUser> => {
     const { username, password } = authCredentialsDto;
     const user = await this.createQueryBuilder('user')
-    .select(['user.id', 'user.username', 'user.displayName', 'user.role', 'user.donationLink', 'user.profilePicturePlaceholder'])
+    .select(['user.id', 'user.username', 'user.displayName', 'user.role', 'user.donationLink', 'user.about', 'user.profilePicturePlaceholder'])
     .addSelect('user.password')
     .addSelect('user.salt')
     .leftJoinAndSelect('user.profilePicture', 'profilePicture')
@@ -96,6 +98,7 @@ export class UsersRepository extends Repository<User> {
         id: user.id,
         role: user.role,
         donationLink: user.donationLink,
+        about: user.about,
         profilePicture: user.profilePicture,
         profilePicturePlaceholder: user.profilePicturePlaceholder,
       };

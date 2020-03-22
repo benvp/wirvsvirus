@@ -24,4 +24,8 @@ export class AuthCredentialsDto {
   @IsString()
   @IsOptional()
   donationLink: string;
+
+  @IsString()
+  @IsOptional()
+  about: string;
 }

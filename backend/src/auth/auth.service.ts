@@ -88,6 +88,7 @@ export class AuthService {
         id: user.id,
         role: user.role,
         donationLink: user.donationLink,
+        about: user.about,
         profilePicture: user.profilePicture,
         profilePicturePlaceholder: user.profilePicturePlaceholder,
       },

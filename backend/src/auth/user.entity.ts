@@ -36,6 +36,9 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   donationLink: string;
 
+  @Column({ nullable: true })
+  about: string;
+
   @OneToMany(
     type => Training,
     x => x.host,
@@ -55,6 +58,7 @@ export interface BaseUser {
   role: Role;
   displayName: string;
   donationLink: string;
+  about: string;
   profilePicture: Picture;
   profilePicturePlaceholder: string;
 }

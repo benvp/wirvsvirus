@@ -86,6 +86,7 @@ export class AuthController {
         id: u.id,
         role: u.role,
         donationLink: u.donationLink,
+        about: u.about,
         profilePicture: u.profilePicture,
         profilePicturePlaceholder: u.profilePicturePlaceholder,
       };
@@ -104,6 +105,7 @@ export class AuthController {
       id: u.id,
       role: u.role,
       donationLink: u.donationLink,
+      about: u.about,
       profilePicture: u.profilePicture,
       profilePicturePlaceholder: u.profilePicturePlaceholder,
     }));
