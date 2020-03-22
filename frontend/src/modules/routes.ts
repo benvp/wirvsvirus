@@ -12,6 +12,7 @@ export const ROUTES = {
   training: (id: number) => `/trainings/${id}`,
   TRAININGS_NEW: '/trainings/new',
   userProfile: (id: string) => `/profile/${id}`,
+  IMPRINT: '/imprint',
 };
 
 export const PUBLIC_ROUTES = [ROUTES.ROOT, ROUTES.PROJECT];

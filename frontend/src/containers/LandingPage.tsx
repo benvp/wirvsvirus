@@ -128,7 +128,7 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
             <div className="mt-10 mx-auto max-w-screen-xl px-4 sm:mt-12 sm:px-6 md:mt-16 lg:mt-20 lg:px-8 xl:mt-28">
               <div className="sm:text-center lg:text-left">
                 <h2 className="text-4xl tracking-tight leading-10 font-extrabold text-gray-900 sm:text-5xl sm:leading-none md:text-6xl">
-                  Trimm dich
+                  Trimm Dich
                   <br className="xl:hidden" />
                   <span className="text-indigo-600"> zu Hause</span>
                 </h2>
@@ -179,7 +179,7 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
               Trimmen zu Hause
             </p>
             <h3 className="mt-2 text-3xl leading-8 font-extrabold tracking-tight text-gray-900 sm:text-4xl sm:leading-10">
-              Wieso soll ich Trimm dich zu Hause nutzen?
+              Wieso soll ich Trimm Dich zu Hause nutzen?
             </h3>
           </div>
 
@@ -299,7 +299,7 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
       <div className="bg-white">
         <div className="max-w-screen-xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
           <p className="text-center text-base leading-6 font-semibold uppercase text-gray-600 tracking-wider">
-            Erstellt von
+            Hacked in <span className="text-indigo-700">48 Hours</span> By
           </p>
           <div className="mt-6 grid grid-cols-2 gap-0.5 md:grid-cols-3 lg:mt-8">
             <div className="col-span-1 flex justify-center py-4 px-4 bg-gray-50">
@@ -351,7 +351,7 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
               <div className="flex flex-col justify-center align-middle">
                 <img
                   className="h-16 w-16 self-center object-center object-cover rounded-full"
-                  src="/img/landing/team/maro.jpg"
+                  src="/img/landing/team/matze.jpg"
                   alt="Matthäus Dubiel"
                 />
                 <p className="mt-2 text-gray-600 self-center">Matthäus Dubiel</p>
@@ -391,7 +391,14 @@ export const LandingPage: React.FC<LandingPageProps> = () => {
             </div>
             <div className="mt-8 md:mt-0 md:order-1">
               <p className="text-center text-base leading-6 text-gray-400">
-                &copy; 2020 Trimm Dich zu Hause - #WirVsVirusHack
+                &copy; 2020 Trimm Dich zu Hause -{' '}
+                <a className="hover:text-gray-900" href="https://wirvsvirushackathon.org/">
+                  #WirVsVirusHack
+                </a>{' '}
+                -{' '}
+                <Link href={ROUTES.IMPRINT}>
+                  <a className="hover:text-gray-900">Impressum</a>
+                </Link>
               </p>
             </div>
           </div>
