@@ -1,7 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { ROUTES, PUBLIC_ROUTES } from '../modules/routes';
+import { ROUTES, PUBLIC_ROUTES, DYNAMIC_ROUTES } from '../modules/routes';
 import classnames from 'classnames';
 import { useCurrentUser, useAuthInfo } from '@@/context/AuthContext';
 import { getProfilePicture } from '@@modules/user/utils';
@@ -56,7 +56,7 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
               </div>
               <div className="hidden sm:ml-6 sm:flex">
                 <NavLink href={ROUTES.ROOT} active={route === ROUTES.ROOT}>
-                  Das Projekt
+                  Startseite
                 </NavLink>
 
                 <NavLink
@@ -97,9 +97,15 @@ export const Shell: React.FC<ShellProps> = ({ children }) => {
 
               {user && (
                 <div className="ml-6 relative sm:center sm:self-center">
-                  <button className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
-                    <img className="h-8 w-8 rounded-full" src={getProfilePicture(user)} alt="" />
-                  </button>
+                  <Link href={DYNAMIC_ROUTES.USER_PROFILE} as={ROUTES.userProfile(user.id)}>
+                    <button className="flex text-sm border-2 border-transparent rounded-full focus:outline-none focus:border-gray-300 transition duration-150 ease-in-out">
+                      <img
+                        className="h-8 w-8 rounded-full object-center object-cover"
+                        src={getProfilePicture(user)}
+                        alt=""
+                      />
+                    </button>
+                  </Link>
                 </div>
               )}
             </div>

@@ -37,10 +37,14 @@ export class Seeder {
             'No users, trainings and tags found. Seeding...',
         );
 
+        const adminPwd = process.env.ADMIN_PASSWORD;
+        if (!adminPwd)
+          throw new Error('Please provide an initial admin password with the environment variable ADMIN_PASSWORD!');
+
         // Admin User
         const credentials = new AuthCredentialsDto();
         credentials.username = 'admin';
-        credentials.password = 'admin1234'; // FIXME: Use an initial password from environment variable
+        credentials.password = adminPwd;
         credentials.displayName = 'admin';
         credentials.profilePicture = 'placeholder_' + String(Math.floor(Math.random() * Math.floor(4)))
 

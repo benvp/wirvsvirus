@@ -3,6 +3,11 @@ import Link from 'next/link';
 import { ROUTES } from '@@modules/routes';
 import { useAuthInfo } from '@@/context/AuthContext';
 import { useRouter } from 'next/router';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { apiRoutes } from '@@modules/api/api';
+import { useMutation } from 'react-query';
+import { Button } from '@@components/Button/Button';
 
 type SignUpProps = {};
 
@@ -16,6 +21,43 @@ const SignUp: React.FC<SignUpProps> = () => {
     }
   }, [auth]);
 
+  const [signUp, { data, status }] = useMutation<any, any>((values: any) =>
+    fetch(apiRoutes.signUp, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(values),
+    }).then(res => res.json()),
+  );
+
+  const formik = useFormik({
+    initialValues: {
+      username: '',
+      password: '',
+      passwordConfirmation: '',
+      displayName: '',
+    },
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .min(3)
+        .required(),
+      password: Yup.string()
+        .min(5)
+        .required(),
+      displayName: Yup.string()
+        .min(3)
+        .required(),
+      passwordConfirmation: Yup.string()
+        .oneOf([Yup.ref('password')])
+        .required(),
+    }),
+    validateOnMount: true,
+    onSubmit: values => {
+      const { passwordConfirmation, ...dto } = values;
+
+      return signUp(dto).then(() => router.push(ROUTES.LOGIN));
+    },
+  });
+
   return (
     <div className="flex flex-col justify-start sm:px-6">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
@@ -26,30 +68,40 @@ const SignUp: React.FC<SignUpProps> = () => {
 
       <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
         <div className="bg-white py-8 px-4 shadow sm:rounded-lg sm:px-10">
-          <form action="#" method="POST">
+          <form onSubmit={formik.handleSubmit}>
             <div>
-              <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">
-                E-Mail Adresse
+              <label
+                htmlFor="username"
+                className="block text-sm font-medium leading-5 text-gray-700"
+              >
+                Benutzername (min. 3 Zeichen)
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
-                  id="email"
-                  type="email"
+                  id="username"
+                  type="text"
                   required
+                  onChange={formik.handleChange}
+                  value={formik.values.username}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                 />
               </div>
             </div>
 
             <div className="mt-6">
-              <label htmlFor="email" className="block text-sm font-medium leading-5 text-gray-700">
-                Nickname
+              <label
+                htmlFor="displayName"
+                className="block text-sm font-medium leading-5 text-gray-700"
+              >
+                Nickname (min. 3 Zeichen)
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
-                  id="email"
+                  id="displayName"
                   type="text"
                   required
+                  onChange={formik.handleChange}
+                  value={formik.values.displayName}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                 />
               </div>
@@ -60,13 +112,15 @@ const SignUp: React.FC<SignUpProps> = () => {
                 htmlFor="password"
                 className="block text-sm font-medium leading-5 text-gray-700"
               >
-                Passwort
+                Passwort (min. 5 Zeichen)
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
                   id="password"
                   type="password"
                   required
+                  onChange={formik.handleChange}
+                  value={formik.values.password}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                 />
               </div>
@@ -74,16 +128,18 @@ const SignUp: React.FC<SignUpProps> = () => {
 
             <div className="mt-6">
               <label
-                htmlFor="password"
+                htmlFor="passwordConfirmation"
                 className="block text-sm font-medium leading-5 text-gray-700"
               >
                 Passwort wiederholen
               </label>
               <div className="mt-1 rounded-md shadow-sm">
                 <input
-                  id="password_confirmation"
+                  id="passwordConfirmation"
                   type="password"
                   required
+                  onChange={formik.handleChange}
+                  value={formik.values.passwordConfirmation}
                   className="appearance-none block w-full px-3 py-2 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:shadow-outline-blue focus:border-blue-300 transition duration-150 ease-in-out sm:text-sm sm:leading-5"
                 />
               </div>
@@ -102,12 +158,13 @@ const SignUp: React.FC<SignUpProps> = () => {
 
             <div className="mt-6">
               <span className="block w-full rounded-md shadow-sm">
-                <button
+                <Button
+                  disabled={status === 'loading' || !formik.isValid}
+                  className="w-full"
                   type="submit"
-                  className="w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-500 focus:outline-none focus:border-indigo-700 focus:shadow-outline-indigo active:bg-indigo-700 transition duration-150 ease-in-out"
                 >
                   Registrieren
-                </button>
+                </Button>
               </span>
             </div>
           </form>

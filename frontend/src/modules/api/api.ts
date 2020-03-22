@@ -8,10 +8,13 @@ const apiRoute = (r: string) => `${API_BASE_URL}${r}`;
 
 export const apiRoutes = {
   login: apiRoute('/auth/signin'),
+  signUp: apiRoute('/auth/register'),
   tags: apiRoute('/tags'),
   trainings: apiRoute('/trainings'),
   training: (id: number) => apiRoute(`/trainings/${id}`),
   trainingAttend: (id: number) => apiRoute(`/trainings/${id}/attend`),
+  profilePictureUpload: apiRoute(`/users/picture`),
+  profile: (id: string) => apiRoute(`/auth/user/${id}`),
 };
 
 export const useFetch = () => {

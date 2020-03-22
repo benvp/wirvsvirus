@@ -1,7 +1,7 @@
 {
   "name": "trimmdich-at-home",
-  "version": "0.0.1",
-  "description": "",
+  "version": "0.1.0-alpha.1",
+  "description": "Backend service for the Trimm Dich Zuhause Portal",
   "author": "",
   "license": "MIT",
   "scripts": {
