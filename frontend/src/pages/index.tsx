@@ -6,7 +6,7 @@ const Home: React.FC = () => {
   return (
     <main>
       <Head>
-        <title>TrimmDich 2.0</title>
+        <title>Trimm Dich zu Hause</title>
       </Head>
       <main>
         <LandingPage />
