@@ -15,8 +15,10 @@ const initGoogleAnalytics = () => {
 export default function MyApp({ Component, pageProps }: any) {
   useEffect(() => {
     if (!(window as any).__GA_INITIALIZED) {
-      initGoogleAnalytics();
-      (window as any).__GA_INITIALIZED = true;
+      if (process.env.NODE_ENV === 'production') {
+        initGoogleAnalytics();
+        (window as any).__GA_INITIALIZED = true;
+      }
     }
 
     ReactGA.pageview(window.location.pathname + window.location.search);
