@@ -50,7 +50,6 @@ export const EditProfileCard: React.FC<EditProfileCardProps> = () => {
         .min(3)
         .required(),
       email: Yup.string().required(),
-      about: Yup.string().required(),
       donationLink: Yup.string()
         .url()
         .required(),
@@ -144,7 +143,7 @@ export const EditProfileCard: React.FC<EditProfileCardProps> = () => {
                     htmlFor="about"
                     className="block text-sm font-medium leading-5 text-gray-700 sm:mt-px"
                   >
-                    Über dich <span className="text-red-700">*</span>
+                    Über dich
                   </label>
                   <div className="mt-1 sm:mt-0 sm:col-span-2">
                     <div className="max-w-lg flex rounded-md shadow-sm">
