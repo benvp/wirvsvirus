@@ -49,7 +49,7 @@ export class UsersRepository extends Repository<User> {
     user: User,
     authCredentialsDto: AuthCredentialsDto,
   ): Promise<BaseUser> {
-    const { username, password, displayName } = authCredentialsDto;
+    const { username, password, displayName, about, donationLink } = authCredentialsDto;
 
     user.username = username;
     if (password) {
@@ -57,6 +57,8 @@ export class UsersRepository extends Repository<User> {
       user.password = await this.hashPassword(password, user.salt);
     }
     user.displayName = displayName;
+    user.about = about;
+    user.donationLink = donationLink;
 
     try {
       await user.save();
