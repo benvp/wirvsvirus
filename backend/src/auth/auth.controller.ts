@@ -7,16 +7,24 @@ import {
   Get,
   Delete,
   Param,
-  ParseIntPipe,
   Patch,
   UnauthorizedException,
   BadRequestException,
+  Res,
+  NotFoundException,
+  UseInterceptors,
+  UploadedFile,
 } from '@nestjs/common';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { AuthService } from './auth.service';
 import { User, BaseUser } from './user.entity';
 import { GetUser } from './get-user.decorator';
 import { ApiAuthGuard } from './apiAuth.guard';
+import * as path from 'path'
+import * as fs from 'fs';
+import { FileInterceptor } from '@nestjs/platform-express';
+import { v4 as uuid } from 'uuid';
+import { diskStorage } from 'multer';
 import { Roles } from './roles.decorator';
 import { Role } from './roles.enum';
 import { RolesGuard } from './roles.guard';
@@ -79,6 +87,7 @@ export class AuthController {
         role: u.role,
         donationLink: u.donationLink,
         profilePicture: u.profilePicture,
+        profilePicturePlaceholder: u.profilePicturePlaceholder,
       };
     }
   }
@@ -96,6 +105,60 @@ export class AuthController {
       role: u.role,
       donationLink: u.donationLink,
       profilePicture: u.profilePicture,
+      profilePicturePlaceholder: u.profilePicturePlaceholder,
     }));
+  }
+
+  @Post('/users/picture')
+  @UseGuards(ApiAuthGuard, RolesGuard)
+  @Roles(
+    Role.ADMIN,
+    Role.TRIMMED,
+    Role.TRIMMER,
+  )
+  @UseInterceptors(FileInterceptor('file',
+    {
+      storage: diskStorage({
+        destination: './uploads/pictures',
+        filename: (req, file, cb) => {
+          let extension;
+          switch (file.mimetype) {
+            case 'image/jpeg':
+              extension = 'jpg';
+              break;
+              case 'image/png':
+              extension = 'png';
+              break;
+            default:
+              throw new Error('Invalid extension');
+          }
+          return cb(null, `${uuid()}.${extension}`)
+        }
+      })
+    }
+  )
+  )
+  uploadFile(@GetUser() user: User, @UploadedFile() file) {
+    return this.authService.setProfilePicture(user.id, file.filename);
+  }
+
+  @Get('/users/:userId/picture')
+  @UseGuards(ApiAuthGuard, RolesGuard)
+  @Roles(
+    Role.ADMIN,
+    Role.TRIMMED,
+    Role.TRIMMER,
+  )
+  async serveProfilePicture(@Param('userId') userId: string, @Res() res): Promise<any> {
+    const user = await this.authService.getUserById(userId);
+    if (!user.profilePicture)
+      throw new NotFoundException('This user does not have a profile picture.');
+
+    const resolvedPath = path.resolve(`./uploads/pictures/${user.profilePicture.filename}`);
+    if (fs.existsSync(resolvedPath)) {
+      res.sendFile(resolvedPath);
+    } else {
+      throw new NotFoundException('This user does not have a profile picture.');
+    }
   }
 }

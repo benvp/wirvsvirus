@@ -6,6 +6,8 @@ import { TypeOrmModule, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { AuthService } from '../auth/auth.service';
 import { JwtModule } from '@nestjs/jwt';
 import { PassportModule } from '@nestjs/passport';
+import { PicturesRepository } from 'src/pictures/pictures.repository';
+import { PicturesService } from 'src/pictures/pictures.service';
 import { Seeder } from './seeder';
 import { TagsRepository } from '../tags/tags.repository';
 import { TagsService } from '../tags/tags.service';
@@ -27,8 +29,8 @@ const jwtConfig = config.get('jwt');
       },
     }),
     TypeOrmModule.forRoot(typeOrmConfig as TypeOrmModuleOptions),
-    TypeOrmModule.forFeature([UsersRepository, TrainingsRepository, TagsRepository]),
+    TypeOrmModule.forFeature([UsersRepository, PicturesRepository, TrainingsRepository, TagsRepository]),
   ],
-  providers: [AuthService, Logger, Seeder, TrainingsService, TagsService],
+  providers: [AuthService, PicturesService, Logger, Seeder, TrainingsService, TagsService],
 })
 export class SeederModule { }

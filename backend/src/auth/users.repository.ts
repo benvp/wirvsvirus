@@ -22,7 +22,7 @@ export class UsersRepository extends Repository<User> {
     user.password = await this.hashPassword(password, user.salt);
     user.role = role ? role : Role.TRIMMED;
     user.displayName = displayName;
-    user.profilePicture = 'placeholder_' + String(Math.floor(Math.random() * Math.floor(4)))
+    user.profilePicturePlaceholder = 'placeholder_' + String(Math.floor(Math.random() * Math.floor(4)))
 
     try {
       await user.save();
@@ -33,6 +33,7 @@ export class UsersRepository extends Repository<User> {
         role: user.role,
         donationLink: user.donationLink,
         profilePicture: user.profilePicture,
+        profilePicturePlaceholder: user.profilePicturePlaceholder,
       };
     } catch (error) {
       logger.error(error);
@@ -65,6 +66,7 @@ export class UsersRepository extends Repository<User> {
         role: user.role,
         donationLink: user.donationLink,
         profilePicture: user.profilePicture,
+        profilePicturePlaceholder: user.profilePicturePlaceholder,
       };
     } catch (error) {
       logger.error(error);
@@ -80,9 +82,10 @@ export class UsersRepository extends Repository<User> {
   ): Promise<BaseUser> => {
     const { username, password } = authCredentialsDto;
     const user = await this.createQueryBuilder('user')
-    .select(['user.id', 'user.username', 'user.displayName', 'user.role', 'user.donationLink', 'user.profilePicture'])
+    .select(['user.id', 'user.username', 'user.displayName', 'user.role', 'user.donationLink', 'user.profilePicturePlaceholder'])
     .addSelect('user.password')
     .addSelect('user.salt')
+    .leftJoinAndSelect('user.profilePicture', 'profilePicture')
     .where({ username })
     .getOne();
 
@@ -94,6 +97,7 @@ export class UsersRepository extends Repository<User> {
         role: user.role,
         donationLink: user.donationLink,
         profilePicture: user.profilePicture,
+        profilePicturePlaceholder: user.profilePicturePlaceholder,
       };
     else return null;
   };

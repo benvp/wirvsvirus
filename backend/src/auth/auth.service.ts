@@ -12,6 +12,7 @@ import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt-payload.interface';
 import { User, BaseUser } from './user.entity';
 import { Role } from './roles.enum';
+import { PicturesService } from 'src/pictures/pictures.service';
 
 @Injectable()
 export class AuthService {
@@ -19,6 +20,7 @@ export class AuthService {
     @InjectRepository(UsersRepository)
     private usersRepository: UsersRepository,
     private jwtService: JwtService,
+    private pictureService: PicturesService,
   ) { }
 
   createUser = async (
@@ -87,6 +89,7 @@ export class AuthService {
         role: user.role,
         donationLink: user.donationLink,
         profilePicture: user.profilePicture,
+        profilePicturePlaceholder: user.profilePicturePlaceholder,
       },
     };
   };
@@ -94,4 +97,12 @@ export class AuthService {
   getAllUsers = async (): Promise<User[]> => {
     return await this.usersRepository.getAllUsers();
   };
+
+  setProfilePicture = async (userId: string, receiptFileName: string): Promise<User> => {
+    const user = await this.getUserById(userId);
+    const picture = await this.pictureService.createPicture(receiptFileName);
+    user.profilePicture = picture;
+    user.save();
+    return user;
+  }
 }

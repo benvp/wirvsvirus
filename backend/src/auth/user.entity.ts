@@ -1,7 +1,8 @@
 import * as bcrypt from 'bcrypt';
 
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { BaseEntity, Column, Entity, JoinColumn, OneToMany, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
 
+import { Picture } from 'src/pictures/picture.entity';
 import { Role } from './roles.enum';
 import { Training } from '../trainings/training.entity';
 
@@ -25,8 +26,12 @@ export class User extends BaseEntity {
   @Column({ nullable: true })
   role: Role;
 
+  @OneToOne(type => Picture, { eager: true })
+  @JoinColumn()
+  profilePicture: Picture;
+
   @Column()
-  profilePicture: string;
+  profilePicturePlaceholder: string;
 
   @Column({ nullable: true })
   donationLink: string;
@@ -50,5 +55,6 @@ export interface BaseUser {
   role: Role;
   displayName: string;
   donationLink: string;
-  profilePicture: string;
+  profilePicture: Picture;
+  profilePicturePlaceholder: string;
 }

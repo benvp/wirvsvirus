@@ -29,6 +29,8 @@ export class TrainingsRepository extends Repository<Training> {
     query.leftJoinAndSelect('training.host', 'host')
     query.leftJoinAndSelect('training.tags', 'tags')
     query.leftJoinAndSelect('training.attendees', 'attendees')
+    query.leftJoinAndSelect('host.profilePicture', 'hprofilePicture')
+    query.leftJoinAndSelect('attendees.profilePicture', 'aprofilePicture')
     const items = await query.getMany();
     const total = await tQuery.getCount();
 
